@@ -1,0 +1,46 @@
+<mat-card [ngClass]="isActivated ? 'active' : 'inactive'">
+  <mat-card-title>Course n°{{ index }}</mat-card-title>
+  <mat-card-content>
+    <button
+      [disabled]="!isActivated"
+      *ngIf="!map"
+      mat-button
+      (click)="openDialog(index)"
+    >
+      Choix du circuit
+    </button>
+    <app-track-item *ngIf="map" [map]="map" (click)="openDialog(index)" />
+    <span class="posShock"> Position | | Shocks</span>
+    <span *ngFor="let player of players" class="playerNames">
+      {{ player.display_name }}
+      <div class="inputs">
+        <input
+          [disabled]="!isActivated || !map"
+          type="number"
+          [id]="player.player_id + '_position' + index"
+          [value]="positions.get(player.player_id.toString())"
+          maxlength="2"
+          min="1"
+          max="12"
+          required
+        />
+        <input
+          [disabled]="!isActivated || !map"
+          type="number"
+          [id]="player.player_id + '_shock' + index"
+          [value]="shocks.get(player.player_id.toString())"
+          maxlength="1"
+        />
+      </div>
+    </span>
+    <app-score-item [track]="track" />
+
+    <button
+      [disabled]="!isActivated || !map"
+      mat-button
+      (click)="onValidateTrack(index, map.index)"
+    >
+      Valider la course
+    </button>
+  </mat-card-content>
+</mat-card>

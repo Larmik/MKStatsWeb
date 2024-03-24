@@ -1,0 +1,26 @@
+img {
+  width: 80px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: lightgrey;
+  margin: 10px;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  background-color: #ffffffaa;
+  border-radius: 10px;
+  color: black;
+}
+span {
+  font-size: small;
+  text-align: center;
+}
+.main:hover {
+  background-color: hsl(216, 85%, 13%);
+  color: white;
+  cursor: pointer;
+}

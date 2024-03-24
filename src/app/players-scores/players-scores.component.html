@@ -1,0 +1,13 @@
+<div class="main">
+  <div class="namesColumn">
+    <span *ngFor="let score of scores">
+      {{ score.name }}
+      <span *ngIf="score.tracksPlayed" class="trackPlayed"
+        >({{ score.tracksPlayed }})</span
+      >
+    </span>
+  </div>
+  <div class="scoresColumn">
+    <span *ngFor="let score of scores">{{ score.score }}</span>
+  </div>
+</div>

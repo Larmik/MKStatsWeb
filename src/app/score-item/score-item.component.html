@@ -1,0 +1,15 @@
+<div class="main">
+  <div *ngIf="war" class="score">
+    <span class="scoreLabel"
+      >{{ war.scoreHost }} - {{ war.scoreOpponent }}</span
+    >
+    <span class="diff">{{ war.displayedDiff }}</span>
+  </div>
+
+  <div *ngIf="track" class="score">
+    <span class="scoreLabel"
+      >{{ track.teamScore }} - {{ track.opponentScore }}</span
+    >
+    <span class="diff">{{ track.diffScore }}</span>
+  </div>
+</div>

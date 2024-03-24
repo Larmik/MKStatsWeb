@@ -1,0 +1,49 @@
+mat-dialog-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #B0E0E6 ;
+} 
+.teams {
+    width: 100%;
+    display: flex;
+}
+app-team-item {
+    width: 100%;
+    margin: 10px;
+    color: black;
+}
+input {
+    margin: 5px;
+    height: 40px;
+    width: 80px;
+    align-self: center;
+}
+.unselected{
+    color: black;
+}
+.selected {
+    color: white;
+    background-color: #051c3d;
+}
+h2 {
+    background-color: #051c3d;
+    text-align: center;
+}
+button {
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+app-team-item {
+    background-color: #FFFFFFAA;
+    margin: 5px;
+    border-radius: 10px;
+}
+app-team-item:hover {
+    background-color: hsl(216, 85%, 13%);
+    color: white;
+    cursor: pointer;
+}

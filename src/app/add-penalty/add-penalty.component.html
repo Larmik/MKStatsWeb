@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Pénalité</h2>
+<mat-dialog-content>
+  <div class="teams">
+    <app-team-item
+      [team]="teamHost"
+      (click)="onTeamSelected(teamHost)"
+      [ngClass]="selectedTeam?.id == teamHost.id ? 'selected' : 'unselected'"
+    />
+    <app-team-item
+      [team]="teamOpponent"
+      (click)="onTeamSelected(teamOpponent)"
+      [ngClass]="
+        selectedTeam?.id == teamOpponent.id ? 'selected' : 'unselected'
+      "
+    />
+  </div>
+  <input type="number" id="penaltyAmount" />
+  <button
+    mat-button
+    mat-dialog-close
+    [disabled]="!selectedTeam"
+    (click)="onPenaltyAdded()"
+  >
+    Infliger la pénalité
+  </button>
+</mat-dialog-content>

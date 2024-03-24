@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Sélection des joueurs</h2>
+<mat-dialog-content>
+  <div class="list">
+    <p>Roster</p>
+    <app-player-item
+      *ngFor="let player of players"
+      [player]="player"
+      (click)="onPlayerSelected(player)"
+    />
+  </div>
+  <div class="list">
+    <p>Allies</p>
+    <app-player-item
+      *ngFor="let ally of allies"
+      [player]="ally"
+      (click)="onPlayerSelected(ally)"
+    />
+  </div>
+  <div class="list">
+    <p>Line-Up</p>
+    <app-player-item
+      *ngFor="let player of selectedPlayers"
+      [player]="player"
+      (click)="onPlayerSelected(player)"
+    />
+    <button
+      mat-button
+      mat-dialog-close
+      *ngIf="isLineupValid"
+      (click)="onValidateWar()"
+    >
+      Valider la Line-Up
+    </button>
+  </div>
+</mat-dialog-content>

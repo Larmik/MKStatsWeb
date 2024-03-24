@@ -1,0 +1,30 @@
+.main {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 14px;
+  padding: 10px;
+}
+.namesColumn {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.scoresColumn {
+  display: flex;
+  min-width: 100px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+span {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: white;
+}
+.trackPlayed {
+  margin-left: 5px;
+  font-weight: normal;
+}

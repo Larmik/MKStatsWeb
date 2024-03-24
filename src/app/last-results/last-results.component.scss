@@ -1,0 +1,16 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: cadetblue;
+    align-items: center;
+    margin: 20px;
+    padding-bottom: 20px;
+}
+app-war-item {
+    width: 80%;
+}
+.title {
+    color: white;
+    font-size: x-large;
+}

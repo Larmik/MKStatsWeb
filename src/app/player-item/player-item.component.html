@@ -1,0 +1,7 @@
+<div class="main">
+  <img
+    [src]="imageUrl"
+    (error)="this.imageUrl = '././assets/images/teamwar.png'"
+  />
+  <span>{{ user?.name ?? player.display_name }}</span>
+</div>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "stats-mk": {
+      "hosting": {
+        "mkstatsweb": [
+          "stats-mk"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "stats-mk"
+  }
+}

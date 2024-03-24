@@ -1,0 +1,23 @@
+.main {
+    position: relative;
+    top: 80px;
+    width: 100%;
+    display: flex;
+    background-color: #B0E0E6 ;
+}
+app-header {
+    width:100%;
+    position:fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+.leftColumn {
+    width: 30%;
+}
+.rightColumn {
+    width: 20%;
+}
+.middle {
+    width: 50%;
+}

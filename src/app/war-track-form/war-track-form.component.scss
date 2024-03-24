@@ -1,0 +1,69 @@
+.active {
+  width: 100%;
+  background-color: #5f9ea0;
+  margin: 10px;
+}
+.inactive {
+  width: 100%;
+  background-color: #5f9ea055;
+  margin: 10px;
+}
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  margin: 5px;
+  height: 25px;
+  width: 40px;
+}
+img {
+  display: flex;
+  width: 80px;
+  height: 50px;
+  border-radius: 10px;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  margin: 10px;
+  text-align: center;
+  color: hsl(216, 85%, 13%);
+}
+img:hover {
+  background-color: hsl(216, 85%, 13%);
+  color: white;
+  cursor: pointer;
+}
+.playerNames {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+span {
+  color: white;
+  text-align: end;
+  width: 100%;
+}
+.posShock {
+  font-size: small;
+  margin-right: 16px;
+}
+mat-card-title {
+  text-align: center;
+  color: white;
+}
+app-track-item,
+app-score-item {
+  width: 100%;
+}
+button {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 5px;
+}

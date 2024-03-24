@@ -1,0 +1,74 @@
+<div *ngIf="team" class="team">
+  <img
+    [src]="teamPicture"
+    (error)="this.teamPicture = '././assets/images/teamwar.png'"
+  />
+  <h1>{{ team.team_name }}</h1>
+</div>
+<div *ngIf="players" class="players">
+  <div *ngIf="penalties.size > 0" class="penalties">
+    <span class="penaTitle">Pénalités</span>
+    <div class="penaContent">
+      <div class="penaTeamColumn">
+        <span *ngFor="let pena of penalties.entries()">
+          {{ pena[0] }}
+        </span>
+      </div>
+      <div class="penaAmountColumn">
+        <span *ngFor="let pena of penalties.entries()">
+          {{ pena[1] }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <app-players-scores [players]="players" [war]="war" />
+</div>
+
+<div *ngIf="war" class="war">
+  <h1>War en cours</h1>
+  <app-war-item [war]="war" />
+</div>
+
+<div class="logout">
+  <div class="profile">
+    <img
+      class="profilePicture"
+      [src]="profilePicture"
+      (error)="this.profilePicture = '././assets/images/teamwar.png'"
+    />
+    <span>{{ profileName }}</span>
+    <img
+      class="logoutPicture"
+      src="././assets/images/logout.png"
+      (click)="logout()"
+    />
+  </div>
+</div>
+
+<div *ngIf="war" class="warOptions">
+  <button mat-button class="warButtons" (click)="openPenaDialog()">
+    Pénalité
+  </button>
+  <button
+    *ngIf="war.warTracks.length < 12"
+    mat-button
+    class="warButtons"
+    (click)="openSubDialog()"
+  >
+    Remplacement
+  </button>
+  <button *ngIf="war.warTracks.length == 12" mat-button class="warButtons">
+    Editer le tab
+  </button>
+  <button mat-button class="warButtons" (click)="cancelWar()">
+    Annuler la war
+  </button>
+  <button
+    *ngIf="war.warTracks.length == 12"
+    mat-button
+    class="warButtons"
+    (click)="validateWar()"
+  >
+    Valider la war
+  </button>
+</div>

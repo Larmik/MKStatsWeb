@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Remplacement</h2>
+<mat-dialog-content>
+  <div class="list">
+    <p>Line Up</p>
+    <app-player-item
+      *ngFor="let player of currentPlayers"
+      [user]="player"
+      (click)="onOldPlayerSelected(player)"
+      [ngClass]="oldPlayer?.mkcId == player.mkcId ? 'selected' : 'unselected'"
+    />
+    <button
+      mat-button
+      mat-dialog-close
+      *ngIf="oldPlayer && newPlayer"
+      (click)="onValidateSub()"
+    >
+      Remplacer {{ oldPlayer.name }} par {{ newPlayer.name }}
+    </button>
+  </div>
+  <div class="list">
+    <p>Remplaçants</p>
+    <app-player-item
+      *ngFor="let player of remainingPlayers"
+      [user]="player"
+      (click)="onNewPlayerSelected(player)"
+      [ngClass]="newPlayer?.mkcId == player.mkcId ? 'selected' : 'unselected'"
+    />
+  </div>
+</mat-dialog-content>

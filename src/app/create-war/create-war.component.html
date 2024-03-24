@@ -1,0 +1,34 @@
+<div class="main">
+  <p class="title">Créer une war</p>
+  <div class="createWarView">
+    <input
+      *ngIf="!selectedTeam"
+      id="searchTeam"
+      name="searchTeam"
+      type="text"
+      placeholder="Rechercher une équipe"
+      (keyup.enter)="submit()"
+    />
+    <button mat-button *ngIf="!selectedTeam" (click)="submit()">Valider</button>
+    <div *ngFor="let team of teams" class="teamContent">
+      <app-team-item
+        [team]="team"
+        (click)="onTeamSelected(team)"
+      ></app-team-item>
+    </div>
+    <div *ngIf="selectedTeam" class="teamLogo">
+      <img
+        [src]="selectedTeamPicture"
+        (error)="this.selectedTeamPicture = '././assets/images/teamwar.png'"
+      />
+      <span>vs</span>
+      <span class="teamName">{{ selectedTeam.team_name }}</span>
+      <div class="buttons">
+        <button mat-button (click)="openDialog(selectedTeam.team_id)">
+          Sélection des joueurs
+        </button>
+        <button mat-button (click)="cancel()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>

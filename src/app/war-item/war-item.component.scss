@@ -1,0 +1,40 @@
+img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+.main {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffffaa;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+.teamLogo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+.teamName {
+  width: 100%;
+  text-align: center;
+}
+.scoreView {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
+}
+.score,
+.diff {
+  width: 100%;
+  text-align: center;
+}
+.score {
+  font-size: larger;
+  font-weight: bold;
+}

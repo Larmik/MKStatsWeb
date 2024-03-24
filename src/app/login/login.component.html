@@ -1,0 +1,33 @@
+<div class="main">
+  <div class="login">
+    <h2>Connexion</h2>
+    <mat-card>
+      <mat-card-content>
+        <form (ngSubmit)="submit()">
+          <input type="text" matInput placeholder="Adresse email" id="email" />
+
+          <input
+            type="password"
+            matInput
+            placeholder="Mot de passe"
+            id="password"
+          />
+
+          <div class="btnContent">
+            <button type="button" mat-button (click)="submit()">
+              Se connecter
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+    <!--
+    <a
+      routerLink="/signup"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      >Nouveau sur l'appli ?</a
+    >
+    -->
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.score {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  background-color: #ffffffaa;
+  border-radius: 10px;
+  padding: 10px;
+}
+.scoreLabel,
+.diff {
+  width: 100%;
+  text-align: center;
+}
+.scoreLabel {
+  font-size: larger;
+  font-weight: bold;
+}

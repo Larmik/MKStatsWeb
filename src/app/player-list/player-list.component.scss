@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: cadetblue;
+  align-items: center;
+  margin: 20px;
+  padding-bottom: 20px;
+}
+.title {
+  color: white;
+  font-size: x-large;
+}
+app-player-item {
+  width: 80%;
+  background-color: #ffffffaa;
+  margin: 5px;
+  border-radius: 10px;
+}
