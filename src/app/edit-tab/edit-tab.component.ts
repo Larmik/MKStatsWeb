@@ -33,32 +33,24 @@ export class EditTabComponent implements OnInit {
     let opponent1Name = (<HTMLInputElement>document.getElementById("opponent1Name")).value
     let opponent1Flag = (<HTMLInputElement>document.getElementById("opponent1Flag")).value
     let opponent1Score = (<HTMLInputElement>document.getElementById("opponent1Score")).value
-
     let opponent2Name = (<HTMLInputElement>document.getElementById("opponent2Name")).value
     let opponent2Flag = (<HTMLInputElement>document.getElementById("opponent2Flag")).value
     let opponent2Score = (<HTMLInputElement>document.getElementById("opponent2Score")).value
-
     let opponent3Name = (<HTMLInputElement>document.getElementById("opponent3Name")).value
     let opponent3Flag = (<HTMLInputElement>document.getElementById("opponent3Flag")).value
     let opponent3Score = (<HTMLInputElement>document.getElementById("opponent3Score")).value
-
     let opponent4Name = (<HTMLInputElement>document.getElementById("opponent4Name")).value
     let opponent4Flag = (<HTMLInputElement>document.getElementById("opponent4Flag")).value
     let opponent4Score = (<HTMLInputElement>document.getElementById("opponent4Score")).value
-
     let opponent5Name = (<HTMLInputElement>document.getElementById("opponent5Name")).value
     let opponent5Flag = (<HTMLInputElement>document.getElementById("opponent5Flag")).value
     let opponent5Score = (<HTMLInputElement>document.getElementById("opponent5Score")).value
-
     let opponent6Name = (<HTMLInputElement>document.getElementById("opponent6Name")).value
     let opponent6Flag = (<HTMLInputElement>document.getElementById("opponent6Flag")).value
     let opponent6Score = (<HTMLInputElement>document.getElementById("opponent6Score")).value
-
-
     let opponent7Name = (<HTMLInputElement>document.getElementById("opponent7Name")).value
     let opponent7Flag = (<HTMLInputElement>document.getElementById("opponent7Flag")).value
     let opponent7Score = (<HTMLInputElement>document.getElementById("opponent7Score")).value
-
     let opponent8Name = (<HTMLInputElement>document.getElementById("opponent8Name")).value
     let opponent8Flag = (<HTMLInputElement>document.getElementById("opponent8Flag")).value
     let opponent8Score = (<HTMLInputElement>document.getElementById("opponent8Score")).value
@@ -69,14 +61,10 @@ export class EditTabComponent implements OnInit {
     value += opponent4Name + " [" + opponent4Flag + "] " + opponent4Score + "<br/>"
     value += opponent5Name + " [" + opponent5Flag + "] " + opponent5Score + "<br/>"
     value += opponent6Name + " [" + opponent6Flag + "] " + opponent6Score + "<br/>"
-
     if (opponent7Name && opponent7Score)
       value += opponent7Name + " [" + opponent7Flag + "] " + opponent7Score + "<br/>"
-
     if (opponent8Name && opponent8Score)
       value += opponent8Name + " [" + opponent8Flag + "] " + opponent8Score + "<br/>"
-
-
 
     return value
 

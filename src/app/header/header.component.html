@@ -57,7 +57,7 @@
   >
     Remplacement
   </button>
-  <button *ngIf="war.warTracks.length <= 12" mat-button class="warButtons" (click)="openTabDialog()">
+  <button *ngIf="war.warTracks.length == 12" mat-button class="warButtons" (click)="openTabDialog()">
     Editer le tab
   </button>
   <button mat-button class="warButtons" (click)="cancelWar()">
