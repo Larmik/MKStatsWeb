@@ -126,7 +126,7 @@ export class EditTabComponent implements OnInit {
     });
     this.service.getTeamById(war?.teamOpponent ?? "")
     .subscribe((opponent: any) => {
-      codeString += team?.team_name + ' - ' + team?.team_tag + ' #B0E0E6 <br/>';
+      codeString += team?.team_tag + ' - ' + team?.team_name + ' #B0E0E6 <br/>';
       scoreMap.forEach((score) => {
         if (score.tracksPlayed)
           codeString +=
@@ -142,7 +142,7 @@ export class EditTabComponent implements OnInit {
           codeString +=
             score.name + ' [' + score.country + '] ' + score.score + ' <br/>';
       });
-      codeString += "<br/>" + opponent.team_name + ' - ' + opponent.team_tag + ' #FFFFFF <br/>';
+      codeString += "<br/>" + opponent.team_tag + ' - ' + opponent.team_name + ' #FFFFFF <br/>';
       codeString += this.setCodeTabForOpponents()
       this.output = codeString
 

@@ -39,10 +39,6 @@ export class LoginComponent {
   private service: MKCentralService = inject(MKCentralService);
   private router: Router = inject(Router);
   error?: string
-
-
-   
-
   
   submit() {
     let email = (<HTMLInputElement>document.getElementById('email')).value;
@@ -85,8 +81,6 @@ export class LoginComponent {
                         });
                       });
                   });
-                
-                
               }, error => { 
                 switch (error.status) {
                   case 404: {

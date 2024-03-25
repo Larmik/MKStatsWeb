@@ -7,6 +7,7 @@ mat-dialog-content{
 } 
 .main {
     display: flex;
+    justify-content: center;
 }
 .generated {
     margin: 10px;
@@ -47,4 +48,15 @@ button {
     padding: 10px;
     border: 2px solid white;
     border-radius: 5px;
+}
+.tip {
+    color: black;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+a {
+    margin-left: 5px;
+    margin-right: 5px;
 }
