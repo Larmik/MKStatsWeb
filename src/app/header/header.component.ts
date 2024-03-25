@@ -23,6 +23,7 @@ import { AddPenaltyComponent } from '../add-penalty/add-penalty.component';
 import { MKCentralService } from '../../service/mkcentral.service';
 import { FirebaseService } from '../../service/firebase.service';
 import { AuthService } from '../../service/auth.service';
+import { EditTabComponent } from '../edit-tab/edit-tab.component';
 
 @Component({
   selector: 'app-header',
@@ -106,6 +107,13 @@ export class HeaderComponent implements OnInit {
     let config = new MatDialogConfig();
     config.minWidth = '40%';
     this.dialog.open(AddPenaltyComponent, config);
+  }
+
+  openTabDialog() {
+    let config = new MatDialogConfig();
+    config.minWidth = '40%';
+    config.data = this.players
+    this.dialog.open(EditTabComponent, config);
   }
 
   logout() {

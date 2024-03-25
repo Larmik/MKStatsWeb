@@ -1,0 +1,176 @@
+<h2 mat-dialog-title>Edition du tab</h2>
+<mat-dialog-content>
+  <div class="main">
+    <div class="inputContent">
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent1Name"
+          placeholder="Adversaire 1"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent1Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent1Score"
+          placeholder="Score"
+        />
+      </div>
+
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent2Name"
+          placeholder="Adversaire 2"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent2Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent2Score"
+          placeholder="Score"
+        />
+      </div>
+
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent3Name"
+          placeholder="Adversaire 3"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent3Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent3Score"
+          placeholder="Score"
+        />
+      </div>
+
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent4Name"
+          placeholder="Adversaire 4"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent4Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent4Score"
+          placeholder="Score"
+        />
+      </div>
+
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent5Name"
+          placeholder="Adversaire 5"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent5Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent5Score"
+          placeholder="Score"
+        />
+      </div>
+
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent6Name"
+          placeholder="Adversaire 6"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent6Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent6Score"
+          placeholder="Score"
+        />
+      </div>
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent7Name"
+          placeholder="Adversaire 7 (facultatif)"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent7Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent7Score"
+          placeholder="Score"
+        />
+      </div>
+      <div class="inputRow">
+        <input
+          class="inputText"
+          type="text"
+          id="opponent8Name"
+          placeholder="Adversaire 8 (facultatif)"
+        />
+        <input
+        class="inputFlag"
+        type="text"
+        id="opponent8Flag"
+        placeholder="Flag"
+      />
+        <input
+          class="inputNumber"
+          type="number"
+          id="opponent8Score"
+          placeholder="Score"
+        />
+      </div>
+    </div>
+    <div class="generated" 
+    [innerHTML]="output">{{output}}</div>
+  </div>
+
+  <button mat-button (click)="generateTab()">Générer</button>
+</mat-dialog-content>

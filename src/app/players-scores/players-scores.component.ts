@@ -3,9 +3,10 @@ import { Player } from '../../models/team';
 import { NgFor, NgIf } from '@angular/common';
 import { War, WarPosition, WarTrack } from '../../models/war';
 
-class PlayerScore {
+export class PlayerScore {
   name!: string;
   tracksPlayed?: number;
+  country?: string
   score!: number;
 }
 
