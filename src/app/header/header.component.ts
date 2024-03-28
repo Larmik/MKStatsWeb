@@ -13,7 +13,7 @@ import {
 import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { LocalService } from '../../service/local.service';
-import { War } from '../../models/war';
+import { War, WarShock } from '../../models/war';
 import { WarItemComponent } from '../war-item/war-item.component';
 import { Player } from '../../models/team';
 import { PlayersScoresComponent } from '../players-scores/players-scores.component';
@@ -56,11 +56,13 @@ export class HeaderComponent implements OnInit {
   auth: AuthService = inject(AuthService);
   router: Router = inject(Router);
   penalties!: Map<string, number>;
+  shockCount?: number
 
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     let penas: Map<string, number> = new Map();
+    let shocks: WarShock[] = []
     let current = this.local.getCurrentUser();
     let team = this.local.getTeam();
     this.profileName = current?.name;
@@ -79,8 +81,14 @@ export class HeaderComponent implements OnInit {
           }
         }
       });
+      this.war.warTracks.forEach(warTrack => {
+        if (warTrack.shocks) {
+          warTrack.shocks.filter(shock => (shock?.count ?? 0) > 0).forEach(shock => shocks.push(shock))
+        }
+      })
     }
-
+    if (shocks.length > 0)
+      this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
     this.penalties = penas;
   }
 

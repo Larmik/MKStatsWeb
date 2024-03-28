@@ -6,21 +6,6 @@
   <h1>{{ team.team_name }}</h1>
 </div>
 <div *ngIf="players" class="players">
-  <div *ngIf="penalties.size > 0" class="penalties">
-    <span class="penaTitle">Pénalités</span>
-    <div class="penaContent">
-      <div class="penaTeamColumn">
-        <span *ngFor="let pena of penalties.entries()">
-          {{ pena[0] }}
-        </span>
-      </div>
-      <div class="penaAmountColumn">
-        <span *ngFor="let pena of penalties.entries()">
-          {{ pena[1] }}
-        </span>
-      </div>
-    </div>
-  </div>
   <app-players-scores [players]="players" [war]="war" />
 </div>
 
@@ -71,4 +56,31 @@
   >
     Valider la war
   </button>
+ <div class="penasShocks">
+  <div *ngIf="penalties.size > 0" class="penalties">
+    <span class="penaTitle">Pénalités</span>
+    <div class="penaContent">
+      <div class="penaTeamColumn">
+        <span *ngFor="let pena of penalties.entries()">
+          {{ pena[0] }}
+        </span>
+      </div>
+      <div class="penaAmountColumn">
+        <span *ngFor="let pena of penalties.entries()">
+          {{ pena[1] }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="shockCount && shockCount > 0" class="shocks">
+    <span class="penaTitle">Shocks</span>
+    <div class="shockContent">
+       <img src="../../assets/images/shock.png">
+      <span>x{{ shockCount }}</span>
+    </div>
+  </div>
+
+ </div>
+
 </div>

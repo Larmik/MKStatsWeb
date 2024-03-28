@@ -111,6 +111,7 @@ export class WarTrackFormComponent implements OnInit {
     if (this.isActivated) {
       let config = new MatDialogConfig();
       config.minWidth = '75%';
+      config.minHeight = '75%'
       config.data = warTrackIndex;
       let dialogRef = this.dialog.open(SelectTrackComponent, config);
       dialogRef.afterClosed().subscribe((result: any) => {

@@ -36,4 +36,13 @@ export class SelectTrackComponent implements OnInit {
       }
     }
   }
+
+  onSearch() {
+    let value = (<HTMLInputElement> document.getElementById("search")).value
+    if (value && value.length > 0) 
+      this.maps = [...Maps.values()].filter((map: any) => map.name.toLowerCase().includes(value.toLowerCase()) || map.abreviation.toLowerCase().includes(value.toLowerCase()))
+     else 
+      this.maps = [...Maps.values()]
+    
+  }
 }

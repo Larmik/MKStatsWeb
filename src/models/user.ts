@@ -1,5 +1,6 @@
 import { DataSnapshot } from '@angular/fire/database';
 import { Player } from './team';
+import { UserCredential } from '@angular/fire/auth';
 
 export class User {
   mid?: string;
@@ -31,5 +32,23 @@ export class User {
     instance.mkcId = player.player_id.toString();
     instance.name = player.display_name;
     return instance;
+  }
+
+  public static create(user: UserCredential): User {
+    let instance = new User()
+    let fbUser = user.user
+    instance.mid = user.user.uid
+    instance.currentWar = "-1";
+    instance.name = fbUser.displayName ?? ""
+    instance.role = 0;
+    return instance
+  }
+
+  public static addPlayerInfo(user: User, player: any): User {
+    console.log(player)
+    user.mkcId = player.id
+    user.name = player.display_name
+    user.picture = player.profile_picture
+    return user
   }
 }

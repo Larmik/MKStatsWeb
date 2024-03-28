@@ -1,6 +1,7 @@
 <div class="main">
   <div class="login">
-    <h2>Connexion</h2>
+    <h2 *ngIf="!signup">Connexion</h2>
+    <h2 *ngIf="signup">Inscription</h2>
     <mat-card>
       <mat-card-content>
         <form (ngSubmit)="submit()">
@@ -12,22 +13,29 @@
             placeholder="Mot de passe"
             id="password"
           />
+          <input *ngIf="signup"
+            type="password"
+            matInput
+            placeholder="Confirmer le mot de passe"
+            id="passwordConfirm"
+          />
           <p *ngIf="error" class="error">{{error}}</p>
           <div class="btnContent">
-            <button type="button" mat-button (click)="submit()">
+            <button *ngIf="!signup" type="button" mat-button (click)="submit()">
               Se connecter
+            </button>
+
+            <button *ngIf="signup" type="button" mat-button (click)="submit()">
+              S'inscrire
             </button>
           </div>
         </form>
       </mat-card-content>
     </mat-card>
-    <!--
-    <a
-      routerLink="/signup"
-      routerLinkActive="active"
-      ariaCurrentWhenActive="page"
-      >Nouveau sur l'appli ?</a
-    >
-    -->
+    
+    <p *ngIf="!signup" class="link" (click)="onSignupEnabled(true)">Nouveau sur l'appli ? Inscrivez-vous !</p>
+    <p *ngIf="signup" class="link" (click)="onSignupEnabled(false)">Déjà sur l'appli ? Connectez-vous !</p>
+
+  
   </div>
 </div>

@@ -1,6 +1,7 @@
 <h2 mat-dialog-title>Course {{ data }}/12 - Sélection du circuit</h2>
 
 <mat-dialog-content>
+  <input type="text" class="search" id="search" (input)="onSearch()" placeholder="Rechercher un circuit..." />
   <div class="list">
     <app-track-item
       *ngFor="let map of maps"
