@@ -4,10 +4,11 @@
     <app-last-results [wars]="wars.slice(0, 5)"/>
   </div>
   <div class="middle">
-    <app-war-stats [stats]="wars"/>
+    <app-player-list [rosters]="players"/>
+
   </div>
   <div class="rightColumn">
+    <app-war-stats [stats]="wars"/>
     <app-create-war *ngIf="createWarVisible"/>
-    <app-player-list [players]="players"/>
   </div>
 </div>

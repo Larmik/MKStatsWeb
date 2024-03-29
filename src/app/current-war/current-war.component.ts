@@ -32,7 +32,7 @@ export class CurrentWarComponent implements OnInit {
   ngOnInit(): void {
     let current = this.local.getCurrentWar()
     let users = this.local.getCurrentPlayers()
-    let roster = this.local.getPlayers()
+    let roster = this.local.getPlayers().flatMap(roster => roster.players)
     let allies = this.local.getAllies()
     let currentPlayers: Player[] = []
     let warTracks: WarTrack[] = new Array(12)

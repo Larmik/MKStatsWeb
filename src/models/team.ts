@@ -26,10 +26,21 @@ export class Team {
     this.recruitment_status = obj.recruitment_status;
     this.team_status = obj.team_status;
     this.is_historical = obj.is_historical;
-    console.log(obj);
+    if (obj.rosters && obj.rosters['150cc'])
     this.roster = obj.rosters['150cc'].members.map(
       (player: any) => new Player(player, false)
     );
+    else this.roster = []
+  }
+}
+
+export class Roster {
+  team!: any
+  players!: Player[]
+
+  constructor(team: any, players: Player[]) {
+    this.team = team
+    this.players = players
   }
 }
 

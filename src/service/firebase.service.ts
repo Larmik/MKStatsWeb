@@ -20,7 +20,6 @@ export class FirebaseService {
   public writeCurrentWar(war: War) {
     let teamId = this.local.getTeam()?.id;
     const currentWarRef = ref(this.database, 'currentWars/' + teamId);
-    console.log(war);
     set(currentWarRef, war);
   }
   public deleteCurrentWar() {

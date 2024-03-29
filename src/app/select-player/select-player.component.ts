@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { Player, Team } from '../../models/team';
+import { Player, Roster, Team } from '../../models/team';
 import { NgFor, NgIf } from '@angular/common';
 import { PlayerItemComponent } from '../player-item/player-item.component';
 import { LocalService } from '../../service/local.service';
@@ -18,9 +18,11 @@ import { Router } from '@angular/router';
   styleUrl: './select-player.component.scss',
 })
 export class SelectPlayerComponent implements OnInit {
-  players!: Player[];
+  rosters!: Roster[];
   allies!: Player[];
   isLineupValid!: Boolean;
+
+  players!: Player[]
 
   selectedPlayers: Player[] = [];
   users: User[] = [];
@@ -32,7 +34,8 @@ export class SelectPlayerComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
 
   ngOnInit(): void {
-    this.players = this.local.getPlayers();
+    this.rosters = this.local.getPlayers();
+    this.players = this.rosters.flatMap(roster => roster.players)
     this.allies = this.local.getAllies();
     this.users = this.local.getUsers();
     this.sortPlayers();

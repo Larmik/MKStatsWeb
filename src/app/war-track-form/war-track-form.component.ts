@@ -47,7 +47,7 @@ export class WarTrackFormComponent implements OnInit {
   ngOnInit(): void {
     let currentWar = this.local.getCurrentWar();
     let users = this.local.getCurrentPlayers();
-    let roster = this.local.getPlayers();
+    let roster = this.local.getPlayers().flatMap(roster => roster.players);
     let allies = this.local.getAllies();
 
     let track = currentWar?.warTracks[this.index - 1];
@@ -169,7 +169,6 @@ export class WarTrackFormComponent implements OnInit {
           );
       });
       if (warTrackIndex > currentWar?.warTracks.length) {
-        console.log('creating new track');
         if (positions.length == 6) {
           currentTrack = WarTrack.addPositionsAndShocks(
             currentTrack,
@@ -179,7 +178,6 @@ export class WarTrackFormComponent implements OnInit {
           currentWar = War.addTrack(currentWar, currentTrack, warTrackIndex);
         }
       } else {
-        console.log('editing existing track');
         let map = this.maps.find((map: any) => map.index == mapIndex);
         let trackToEdit = currentWar.warTracks[warTrackIndex - 1];
         trackToEdit.trackIndex = map.index;

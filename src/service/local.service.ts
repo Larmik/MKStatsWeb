@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { War, WarTrack } from '../models/war';
-import { Player, Team } from '../models/team';
+import { Player, Roster, Team } from '../models/team';
 import { User } from '../models/user';
+
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { User } from '../models/user';
 export class LocalService {
   //List setters methods
 
-  public savePlayers(players: Player[]) {
+  public savePlayers(players: Roster[]) {
     let rawString = JSON.stringify(players);
     localStorage.setItem('players', rawString);
   }
@@ -49,7 +50,7 @@ export class LocalService {
     localStorage.setItem('team', rawString);
   }
 
-  public getPlayers(): Player[] {
+  public getPlayers(): Roster[] {
     let rawString = localStorage.getItem('players');
     if (rawString != null) return JSON.parse(rawString);
     return [];

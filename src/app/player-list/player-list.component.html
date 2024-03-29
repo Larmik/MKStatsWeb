@@ -1,7 +1,7 @@
 <div class="main">
-  <p class="title">L'équipe</p>
-  <app-player-item
-    *ngFor="let player of players"
-    [player]="player"
-  ></app-player-item>
+  <span class="title">L'équipe</span>
+  <div  class="rosterContent">
+    <app-roster-list *ngFor="let roster of rosters" [roster]="roster"/>
+  </div>
+ 
 </div>

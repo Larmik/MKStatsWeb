@@ -1,0 +1,8 @@
+<div class="main">
+    <p class="title">{{roster.team.team_name}}</p>
+    <app-player-item
+      *ngFor="let player of roster.players"
+      [player]="player"
+    ></app-player-item>
+  </div>
+  

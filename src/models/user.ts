@@ -45,7 +45,6 @@ export class User {
   }
 
   public static addPlayerInfo(user: User, player: any): User {
-    console.log(player)
     user.mkcId = player.id
     user.name = player.display_name
     user.picture = player.profile_picture

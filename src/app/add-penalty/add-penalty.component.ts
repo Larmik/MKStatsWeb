@@ -47,7 +47,6 @@ export class AddPenaltyComponent implements OnInit {
         .value;
       let penalty = WarPenalty.create(this.selectedTeam.id, +amount);
       current = War.addPenalty(current, penalty);
-      console.log(current);
       this.firebase.writeCurrentWar(current);
       this.local.saveCurrentWar(current);
       setTimeout(function () {
