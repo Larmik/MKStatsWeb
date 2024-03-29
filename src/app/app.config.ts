@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     importProvidersFrom([
       provideFirebaseApp(() =>
-        initializeApp(fbReleaseConfing)
+        initializeApp(fbDebugConfig)
       ),
       provideAuth(() => getAuth()),
       provideDatabase(() => getDatabase()),
