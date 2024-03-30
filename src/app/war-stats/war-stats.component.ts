@@ -20,6 +20,7 @@ export class WarStatsComponent implements OnChanges {
   warsWon!: number;
   warsTied!: number;
   warsLoss!: number;
+  winrate!: number;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.warsPlayed = this.stats.length;
@@ -32,5 +33,9 @@ export class WarStatsComponent implements OnChanges {
     this.warsLoss = this.stats.filter((war: any) =>
       war.displayedDiff.includes('-')
     ).length;
+    if (this.warsPlayed > 0)
+      this.winrate = Math.round((this.warsWon*100)/this.warsPlayed)
+    else
+    this.winrate = 0
   }
 }
