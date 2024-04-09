@@ -31,10 +31,11 @@
 </div>
 
 <div *ngIf="war" class="warOptions">
-  <button mat-button class="warButtons" (click)="openPenaDialog()">
+  <button mat-button class="warButtons" (click)="openPenaDialog()" [disabled]="!canEdit">
     Pénalité
   </button>
   <button
+  [disabled]="!canEdit"
     *ngIf="war.warTracks.length < 12"
     mat-button
     class="warButtons"
@@ -42,13 +43,14 @@
   >
     Remplacement
   </button>
-  <button *ngIf="war.warTracks.length == 12" mat-button class="warButtons" (click)="openTabDialog()">
+  <button [disabled]="!canEdit" *ngIf="war.warTracks.length == 12" mat-button class="warButtons" (click)="openTabDialog()">
     Editer le tab
   </button>
-  <button mat-button class="warButtons" (click)="cancelWar()">
+  <button [disabled]="!canEdit" mat-button class="warButtons" (click)="cancelWar()">
     Annuler la war
   </button>
   <button
+  [disabled]="!canEdit"
     *ngIf="war.warTracks.length == 12"
     mat-button
     class="warButtons"

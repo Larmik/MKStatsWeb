@@ -11,6 +11,7 @@ import { LocalService } from '../../service/local.service';
 import { NgFor, NgIf } from '@angular/common';
 import { PlayerListComponent } from '../player-list/player-list.component';
 import { MKCentralService } from '../../service/mkcentral.service';
+import { CurrentWarItemComponent } from '../current-war-item/current-war-item.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { MKCentralService } from '../../service/mkcentral.service';
     WarStatsComponent,
     PlayerListComponent,
     CreateWarComponent,
+    CurrentWarItemComponent,
     NgIf,
     NgFor,
   ],
@@ -35,6 +37,7 @@ export class HomeComponent implements OnInit {
   team?: Team;
   players!: Roster[];
   createWarVisible!: Boolean;
+  currentWars!: War[]
 
   database: FirebaseService = inject(FirebaseService);
   local: LocalService = inject(LocalService);
@@ -42,25 +45,38 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.wars = [];
+    this.currentWars = [];
     let finalWars: War[] = [];
-    let team = this.local.getTeam();
-    console.log(team)
-    if (team?.id)
-      this.database.getWars(team?.id.toString()).subscribe((wars: War[]) => {
+    let finalCurrentWars: War[] = [];
+    this.team = this.local.getTeam();
+    this.players = this.local.getPlayers();
+    let userRole = this.local.getCurrentUser()?.role ?? 0;
+    if (this.team?.id) {
+
+      this.database.getCurrentWar(this.team.id.toString()).subscribe((war: War) => {
+        if (war)
+          finalCurrentWars.push(war) 
+      });
+    this.database.getWars(this.team?.id.toString()).subscribe((wars: War[]) => {
         wars.forEach((war) => {
           finalWars.push(war);
         });
-        if (team?.primary_team_id) {
+        if (this.team?.primary_team_id) {
           this.database
-            .getWars(team?.primary_team_id.toString())
+            .getWars(this.team?.primary_team_id.toString())
             .subscribe((wars: War[]) => {
               wars.forEach((war) => {
                 finalWars.push(war);
               });
               this.wars = finalWars.sort((a, b) => a.mid > b.mid ? -1 : 1)
             });
-        } else if (team?.secondary_teams) {
-          team?.secondary_teams.forEach((team: any) => {
+            this.database.getCurrentWar(this.team?.primary_team_id.toString()).subscribe((war: War) => {
+              if (war) finalCurrentWars.push(war)
+              this.currentWars = finalCurrentWars
+              this.createWarVisible = userRole >= 1 && this.currentWars.filter(war => war.teamHost == this.team?.id.toString() ).length == 0;
+            });
+        } else if (this.team?.secondary_teams) {
+          this.team?.secondary_teams.forEach((team: any) => {
             this.database
             .getWars(team.id.toString())
             .subscribe((wars: War[]) => {
@@ -69,20 +85,27 @@ export class HomeComponent implements OnInit {
               });
               this.wars = finalWars.sort((a, b) => a.mid > b.mid ? -1 : 1)
             });
+            this.database.getCurrentWar(team.id.toString()).subscribe((war: War) => {
+              if (war) finalCurrentWars.push(war)
+              this.currentWars = finalCurrentWars
+              this.createWarVisible = userRole >= 1 && this.currentWars.filter(war => war.teamHost == this.team?.id.toString() ).length == 0;
+            });
           })
-        } else 
-          this.wars = finalWars.sort((a, b) => a.mid > b.mid ? -1 : 1)
+        } else  {
+            this.wars = finalWars.sort((a, b) => a.mid > b.mid ? -1 : 1)
+            this.currentWars = finalCurrentWars
+            this.createWarVisible = userRole >= 1 && this.currentWars.filter(war => war.teamHost == this.team?.id.toString() ).length == 0;
+         
+        }
       });
 
-    this.database.getCurrentWar().subscribe((war: War) => {
-      this.local.saveCurrentWar(war);
-    });
-    this.team = this.local.getTeam();
-    this.players = this.local.getPlayers();
-    let userRole = this.local.getCurrentUser()?.role ?? 0;
-    this.createWarVisible = userRole >= 1;
-    this.database.getCurrentWar().subscribe((war) => {
-      if (war) this.createWarVisible = false;
-    });
+    }
+  
+
+
+
+  
+  
+   
   }
 }

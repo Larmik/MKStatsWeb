@@ -1,6 +1,15 @@
 <app-header [team]="team"/>
 <div class="main">
-  <div class="leftColumn">
+  <div *ngIf="currentWars.length>0" class="currentWar">
+    <p>Wars en cours</p>
+    <div class="currentContainer">
+       <app-current-war-item *ngFor="let war of currentWars" [war]="war"/>
+    </div>
+   
+  </div>
+  <div class="columns">
+
+     <div class="leftColumn">
     <app-last-results [wars]="wars.slice(0, 5)"/>
   </div>
   <div class="middle">
@@ -11,4 +20,6 @@
     <app-war-stats [stats]="wars"/>
     <app-create-war *ngIf="createWarVisible"/>
   </div>
+  </div>
+ 
 </div>

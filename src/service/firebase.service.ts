@@ -39,8 +39,7 @@ export class FirebaseService {
     set(userRef, user);
   }
 
-  public getCurrentWar(): Observable<War> {
-    let teamId = this.local.getTeam()?.id;
+  public getCurrentWar(teamId: String): Observable<War> {
     const warData = ref(this.database, 'currentWars/' + teamId);
     let war: War;
     let promise = get(warData).then((snapshot) => {

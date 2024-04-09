@@ -57,6 +57,7 @@ export class HeaderComponent implements OnInit {
   router: Router = inject(Router);
   penalties!: Map<string, number>;
   shockCount?: number
+  canEdit!: Boolean
 
   constructor(public dialog: MatDialog) {}
 
@@ -70,6 +71,7 @@ export class HeaderComponent implements OnInit {
     this.teamPicture =
       'https://www.mariokartcentral.com/mkc/storage/' + team?.team_logo;
     if (this.war) {
+      this.canEdit = this.war.playerHostId == current?.mkcId
       this.war.penalties.forEach((pena) => {
         if (team?.team_name && pena?.amount) {
           if (pena.teamId == team?.id.toString()) {

@@ -1,0 +1,23 @@
+<div class="main" (click)="goToCurrent()">
+    <div class="teamLogo">
+      <img
+        [src]="teamHostUrl"
+        (error)="this.teamHostUrl = '././assets/images/teamwar.png'"
+      />
+      <span class="teamName">{{ teamHostName }}</span>
+    </div>
+    <div class="scoreView">
+      <span class="score"> {{ war.scoreHost }} - {{ war.scoreOpponent }} </span>
+      <span class="diff">{{ war.displayedDiff }}</span>
+      <span class="remaining">Maps restantes : {{ 12 - (war.warTracks.length) }}</span>
+
+    </div>
+    <div class="teamLogo">
+      <img
+        [src]="teamOpponentUrl"
+        (error)="this.teamOpponentUrl = '././assets/images/teamwar.png'"
+      />
+      <span class="teamName">{{ teamOpponentName }}</span>
+    </div>
+  </div>
+  

@@ -25,8 +25,7 @@ export class AddPenaltyComponent implements OnInit {
   selectedTeam: any;
 
   ngOnInit(): void {
-    let team = this.local.getTeam()
-    let currentWar = this.local.getCurrentWars().find(war => war.teamHost == team?.id.toString());
+    let currentWar = this.local.getCurrentWar()
     if (currentWar) {
       this.teamHost = this.local.getTeam();
       this.service
@@ -42,8 +41,7 @@ export class AddPenaltyComponent implements OnInit {
   }
 
   onPenaltyAdded() {
-    let team = this.local.getTeam()
-    let current= this.local.getCurrentWars().find(war => war.teamHost == team?.id.toString());
+    let current= this.local.getCurrentWar()
     if (current) {
       let amount = (<HTMLInputElement>document.getElementById('penaltyAmount'))
         .value;

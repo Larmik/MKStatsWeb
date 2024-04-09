@@ -37,8 +37,9 @@ export class War {
     instance.teamOpponent = war.teamOpponent;
     instance.createdDate = war.createdDate;
     instance.isOfficial = war.isOfficial;
-    let finalScoreHost =
-      tracks
+    var finalScoreHost = 0
+    if (tracks.length > 0)
+      finalScoreHost = tracks
         .map((track) => track.teamScore)
         .reduce((sum, current) => (sum ?? 0) + (current ?? 0)) ?? 0;
     let finalScoreOpponent = 82 * tracks.length - finalScoreHost;

@@ -22,7 +22,7 @@ export class CurrentWarComponent implements OnInit {
   war!: War
   players!: Player[]
   warTracks!: WarTrack[]
-
+  canEdit!: Boolean
 
   firebase: FirebaseService = inject(FirebaseService)
   local: LocalService = inject(LocalService)
@@ -43,6 +43,7 @@ export class CurrentWarComponent implements OnInit {
       if (player) currentPlayers.push(player)
     })
     if (current) {
+      this.canEdit = current.playerHostId == this.local.getCurrentUser()?.mkcId
       this.war = current
       this.players = currentPlayers
       this.warTracks = warTracks

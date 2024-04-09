@@ -1,0 +1,54 @@
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  .main {
+    display: flex;
+    justify-content: space-between;
+    background-color: #051c3d;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+  }
+  .teamLogo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+  }
+  .teamName {
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
+  .scoreView {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+    color: white;
+  }
+  .score,
+  .diff {
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
+  .score {
+    font-size: larger;
+    font-weight: bold;
+  }
+  .remaining {
+    font-weight: lighter;
+    margin-top: 10px;
+    font-size: smaller;
+    text-align: center;
+  }
+
+  .main:hover {
+    cursor: pointer;
+  }
+  

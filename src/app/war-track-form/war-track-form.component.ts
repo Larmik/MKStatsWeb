@@ -41,6 +41,7 @@ export class WarTrackFormComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   players!: Player[];
   @Input() index!: number;
+  @Input() disabled!: Boolean;
 
   private maps!: any[];
 
