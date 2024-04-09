@@ -6,6 +6,7 @@ import { User } from '../../models/user';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { FirebaseService } from '../../service/firebase.service';
+import { Player } from '../../models/team';
 
 @Component({
   selector: 'app-sub-player',
@@ -27,16 +28,15 @@ export class SubPlayerComponent implements OnInit {
   remainingPlayers!: User[];
   oldPlayer?: User;
   newPlayer?: User;
-  users?: User[];
+  users?: Player[];
   firebase: FirebaseService = inject(FirebaseService);
 
   ngOnInit(): void {
-    this.users = this.local.getUsers();
+    this.users = this.local.getPlayers().flatMap(roster => roster.players).concat(this.local.getAllies()) ;
     this.currentPlayers = this.local.getCurrentPlayers();
     this.remainingPlayers = this.users.filter(
-      (user) =>
-        !this.currentPlayers.map((player) => player.mkcId).includes(user.mkcId)
-    );
+      (user) => !this.currentPlayers.map((player) => player.mkcId).includes(user.player_id.toString())
+    ).map(player => User.fromPlayer(player));
   }
 
   onOldPlayerSelected(player: User) {
