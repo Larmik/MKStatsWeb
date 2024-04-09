@@ -1,0 +1,25 @@
+mat-dialog-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF ;
+} 
+
+p {
+    color: black;
+    text-align: center;
+}
+.example {
+    font-size: smaller;
+}
+.error {
+    color: #a82c23;
+    font-size: small;
+}
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+    stroke: #bada55;
+}
+.uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #051c3d;
+}

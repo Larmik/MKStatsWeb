@@ -12,7 +12,6 @@ import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  user,
 } from '@angular/fire/auth';
 import { FirebaseService } from '../../service/firebase.service';
 import { User } from '../../models/user';
@@ -22,7 +21,7 @@ import { Player, Roster, Team } from '../../models/team';
 import { FirebaseError } from '@angular/fire/app';
 import { NgIf } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { LinkMkcComponent } from '../link-mkc/link-mkc.component';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-login',
@@ -68,18 +67,114 @@ export class LoginComponent implements OnInit {
       let confirmPassword = (<HTMLInputElement>(
         document.getElementById('passwordConfirm')
       )).value;
+      let mkcId = (<HTMLInputElement>(
+        document.getElementById('mkcId')
+      )).value;
       if (password == confirmPassword)
-       createUserWithEmailAndPassword(this.auth, email, password)
-        .then((userCredential) => { 
-          this.userToWrite = User.create(userCredential) 
-          this.local.saveCurrentUser(this.userToWrite)
-          this.firebase.writeUser(this.userToWrite)
-        })
-        .then((_ : void) => { this.showLinkMKCDialog() });
-        else this.error = "Les mots de passe ne correspondent pas."
+        if (mkcId) {
+            this.showLoaderDialog("Récupération du joueur...")
+             this.service.getPlayerById(mkcId).subscribe(
+            (player: any) => {
+              let players: Roster[] = []
+              if (player) {
+                this.showLoaderDialog("Récupération de l'équipe...")
+                this.service
+                .getTeamById(player.current_teams[0].team_id.toString())
+                .subscribe((team: any) => {
+                  let newTeam = new Team(team)
+                  this.local.saveTeam(newTeam);
+                  this.showLoaderDialog("Récupération des joueurs...")
+                  if (newTeam.primary_team_id) {
+                    this.service.getTeamById(newTeam.primary_team_id.toString())
+                    .subscribe(team => {
+                      let mainTeam = new Team(team)
+                      players.push(new Roster(mainTeam, mainTeam.roster))
+                      if (team.secondary_teams) {
+                        let length = team.secondary_teams.length
+                        team.secondary_teams.forEach((team: any) => {
+                          this.service.getTeamById(team.id.toString())
+                          .subscribe((team: any) => {
+                            console.log(team)
+                            let teamToAdd = new Team(team)
+                            if (newTeam.id != teamToAdd.id)
+                              players.push(new Roster(teamToAdd, teamToAdd.roster))
+                            console.log("players length : " + players.length + " length " + length)
+                            if (players.length == length) {
+                                players.push(new Roster(newTeam, newTeam.roster))
+                                this.local.savePlayers(players)
+                                this.showLoaderDialog("Création du compte...")
+                                createUserWithEmailAndPassword(this.auth, email, password)
+                                  .then((userCredential) => { 
+                                    this.userToWrite = User.create(userCredential) 
+                                    let playerToWrite = User.addPlayerInfo(this.userToWrite, player)
+                                    this.firebase.writeUser(playerToWrite)
+                                    this.local.saveCurrentUser(playerToWrite)
+                                    this.getAlliesAndRedirect()
+                                  })
+                            }
+                          })
+                        })
+                      }
+                    })
+                  } else if (team.secondary_teams && team.secondary_teams.length > 0) {
+                    console.log("secondary")
+                    let length = team.secondary_teams.length
+                    team.secondary_teams.forEach((team: any) => {
+                      this.service.getTeamById(team.id.toString())
+                      .subscribe((team: any) => {
+                        let teamToAdd = new Team(team)
+                        if (newTeam.id != teamToAdd.id)
+                          players.push(new Roster(teamToAdd, teamToAdd.roster))
+                        if (players.length == length) {
+                            players.push(new Roster(newTeam, newTeam.roster))
+                            this.local.savePlayers(players)
+                            this.showLoaderDialog("Création du compte...")
+                            createUserWithEmailAndPassword(this.auth, email, password)
+                            .then((userCredential) => { 
+                              this.userToWrite = User.create(userCredential) 
+                              let playerToWrite = User.addPlayerInfo(this.userToWrite, player)
+                              this.firebase.writeUser(playerToWrite)
+                              this.local.saveCurrentUser(playerToWrite)
+                              this.getAlliesAndRedirect()
+                            })
+                        }
+                      })
+                    })
+                  } else {
+                    players.push(new Roster(newTeam, newTeam.roster))
+                    this.local.savePlayers(players);
+                    this.showLoaderDialog("Création du compte...")
+                    createUserWithEmailAndPassword(this.auth, email, password)
+                    .then((userCredential) => { 
+                      this.userToWrite = User.create(userCredential) 
+                      let playerToWrite = User.addPlayerInfo(this.userToWrite, player)
+                      this.firebase.writeUser(playerToWrite)
+                      this.local.saveCurrentUser(playerToWrite)
+                      this.getAlliesAndRedirect()
+                    })
+                  }
+                }, (error => this.error = "Le joueur ne fait partie d'aucune équipe."));
+              } else this.error = "Le joueur ne fait partie d'aucune équipe."
+              
+            },
+            (error) => {
+              this.dialog.closeAll()
+              this.error = "Le joueur n'a pas été trouvé."
+            });
+        }
+       
+        else {
+          this.dialog.closeAll()
+          this.error = "Le joueur n'a pas été trouvé."
+        }
+     
+        else {
+          this.error = "Les mots de passe ne correspondent pas."
+        }
     }
      
     else
+    this.showLoaderDialog("Connexion en cours...")
       signInWithEmailAndPassword(this.auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
@@ -91,16 +186,18 @@ export class LoginComponent implements OnInit {
             if (current) {
               this.local.saveCurrentUser(current);
               console.log(current.mkcId)
-
+              this.showLoaderDialog("Récupération du joueur...")
               this.service.getPlayerById(current.mkcId ?? '').subscribe(
                 (player: any) => {
                   let players: Roster[] = []
-                  if (player)
-                    this.service
+                  if (player) {
+                    this.showLoaderDialog("Récupération de l'équipe...")
+                     this.service
                       .getTeamById(player.current_teams[0].team_id.toString())
                       .subscribe((team: any) => {
                         let newTeam = new Team(team)
                         this.local.saveTeam(newTeam);
+                        this.showLoaderDialog("Récupération des joueurs...")
                         if (newTeam.primary_team_id) {
                           this.service.getTeamById(newTeam.primary_team_id.toString())
                           .subscribe(team => {
@@ -125,7 +222,7 @@ export class LoginComponent implements OnInit {
                               })
                             }
                           })
-                        } else if (team.secondary_teams) {
+                        } else if (team.secondary_teams && team.secondary_teams.length > 0) {
                           console.log("secondary")
                           let length = team.secondary_teams.length
                           team.secondary_teams.forEach((team: any) => {
@@ -147,8 +244,11 @@ export class LoginComponent implements OnInit {
                           this.getAlliesAndRedirect()
                         }
                       });
+                  }
+                   
                 },
                 (error) => {
+                  this.dialog.closeAll()
                   switch (error.status) {
                     case 404: {
                       this.error =
@@ -166,6 +266,7 @@ export class LoginComponent implements OnInit {
           });
         })
         .catch((err: FirebaseError) => {
+          this.dialog.closeAll()
           switch (err.message.split('/')[1].replace(').', '')) {
             case 'invalid-email': {
               this.error = 'Veuillez saisir une adresse email valide.';
@@ -191,25 +292,31 @@ export class LoginComponent implements OnInit {
     this.signup = signup;
   }
 
-  showLinkMKCDialog() {
+  showLoaderDialog(message: string) {
+    this.dialog.closeAll()
     let config = new MatDialogConfig();
-    config.maxWidth = '90%'
-    this.dialog.open(LinkMkcComponent, config);
+    config.data = message
+    config.minWidth = '33%'
+    config.minHeight = "33%"
+    this.dialog.open(LoaderComponent, config);
   }
   getAlliesAndRedirect() {
+    this.showLoaderDialog("Récupération des allies...")
     let allies: Player[] = new Array(0);
   this.firebase
   .getAllies()
   .subscribe((alliesStr: string[]) => {
-    if (!alliesStr || alliesStr.length == 0)
-      this.router.navigate(['/home']);
-    alliesStr.forEach((ally: string) => {
+    if (!alliesStr || alliesStr.length == 0){
+        this.dialog.closeAll()
+       this.router.navigate(['/home']);
+    } else alliesStr.forEach((ally: string) => {
       this.service
         .getPlayerById(ally)
         .subscribe((player: Player) => {
           allies.push(new Player(player, true));
           if (allies.length == alliesStr.length) {
             this.local.saveAllies(allies);
+            this.dialog.closeAll()
             this.router.navigate(['/home']);
           }
         });

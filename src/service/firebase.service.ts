@@ -68,7 +68,8 @@ export class FirebaseService {
   }
 
   public getAllies(): Observable<string[]> {
-    let teamId = this.local.getTeam()?.id;
+    let team = this.local.getTeam()
+    let teamId = team?.primary_team_id ?? team?.id
     const allyData = ref(this.database, 'allies/' + teamId);
     const allies = new Array(0);
     let promise = get(allyData).then((snapshot) => {
@@ -83,8 +84,7 @@ export class FirebaseService {
     return from(promise);
   }
 
-  public getWars(): Observable<War[]> {
-    let teamId = this.local.getTeam()?.id;
+  public getWars(teamId: string): Observable<War[]> {
     const warData = ref(this.database, 'newWars/' + teamId);
     const wars: War[] = new Array(0);
     let promise = get(warData).then((snapshot) => {

@@ -19,6 +19,13 @@
             placeholder="Confirmer le mot de passe"
             id="passwordConfirm"
           />
+
+          <input *ngIf="signup"
+            type="number"
+            matInput
+            placeholder="Identifiant MKC"
+            id="mkcId"
+          />
           <p *ngIf="error" class="error">{{error}}</p>
           <div class="btnContent">
             <button *ngIf="!signup" type="button" mat-button (click)="submit()">

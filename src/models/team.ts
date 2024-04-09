@@ -11,6 +11,7 @@ export class Team {
   recruitment_status: string;
   team_status: string;
   is_historical: number;
+  secondary_teams: any[];
   roster: Player[];
 
   constructor(obj: any) {
@@ -26,6 +27,7 @@ export class Team {
     this.recruitment_status = obj.recruitment_status;
     this.team_status = obj.team_status;
     this.is_historical = obj.is_historical;
+    this.secondary_teams = obj.secondary_teams
     if (obj.rosters && obj.rosters['150cc'])
     this.roster = obj.rosters['150cc'].members.map(
       (player: any) => new Player(player, false)
