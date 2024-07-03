@@ -10,4 +10,23 @@ import { MatDialogModule } from '@angular/material/dialog';
 })
 export class TrackItemComponent {
   @Input() map!: any;
+  @Input() disabled !: Boolean;
+
+  onMouseEnter(hoverName: HTMLElement) {
+    if (!this.disabled) {
+      hoverName.style.backgroundColor = "#051c3d";
+      hoverName.style.color = "white";
+      hoverName.style.cursor = "pointer";
+    }
+  
+  }
+
+  onMouseOut(hoverName: HTMLElement) {
+    if (!this.disabled) {
+      hoverName.style.backgroundColor = "#ffffffaa";
+      hoverName.style.color = "black";
+      hoverName.style.cursor = "unset"; 
+    } 
+  }
+
 }

@@ -26,6 +26,8 @@
             placeholder="Identifiant MKC"
             id="mkcId"
           />
+          <p *ngIf="signup" class="complement">L'identifiant MKC correspond au numéro à la fin de la barre d'adresse, lorsque tu es sur ton profil MKCentral.</p>
+          <p *ngIf="signup" class="complementExample">(Ex: https://www.mariokartcentral.com/mkc/registry/players/18595)</p>
           <p *ngIf="error" class="error">{{error}}</p>
           <div class="btnContent">
             <button *ngIf="!signup" type="button" mat-button (click)="submit()">

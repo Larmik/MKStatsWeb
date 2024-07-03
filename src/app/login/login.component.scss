@@ -45,7 +45,6 @@ mat-card-content {
   justify-content: center;
 }
 .btnContent {
-  width: 100%;
   display: flex;
   justify-content: end;
 }
@@ -53,6 +52,7 @@ mat-card-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 30%;
 }
 .error {
   color: #a82c23;
@@ -61,4 +61,11 @@ mat-card-content {
 }
 .link {
   cursor: pointer;
+}
+.complement {
+  text-align: center;
+}
+.complementExample {
+  font-size: small;
+  text-align: center;
 }

@@ -1,4 +1,4 @@
-<div class="main" mat-dialog-close>
+<div #hoverName class="main" (mouseover)="onMouseEnter(hoverName)" (mouseleave)="onMouseOut(hoverName)" mat-dialog-close>
   <img [src]="map.picture" />
   <span>{{ map.name }}</span>
   <span>{{ map.abreviation }}</span>

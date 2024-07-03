@@ -28,6 +28,7 @@ export class LocalService {
   public saveCurrentUser(user: User) {
     let rawString = JSON.stringify(user);
     localStorage.setItem('user', rawString);
+    localStorage.setItem('sessionStart', String(new Date().getTime()))
   }
 
   public saveCurrentWar(war: War) {
@@ -112,5 +113,12 @@ export class LocalService {
 
   public clearAll() {
     localStorage.clear();
+  }
+
+  public isSessionValid() {
+    var sessionStart = Number(localStorage.getItem('sessionStart'))
+    var minute =  new Date().getTime() - (1 * 24 * 60 * 60 * 1000)
+    console.log(minute - sessionStart)
+    return (minute-sessionStart) < 0 && sessionStart != 0
   }
 }

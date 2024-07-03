@@ -68,7 +68,8 @@ export class FirebaseService {
 
   public getAllies(): Observable<string[]> {
     let team = this.local.getTeam()
-    let teamId = team?.primary_team_id ?? team?.id
+    let teamId = team?.id ?? team?.primary_team_id
+    console.log(team)
     const allyData = ref(this.database, 'allies/' + teamId);
     const allies = new Array(0);
     let promise = get(allyData).then((snapshot) => {
@@ -78,6 +79,7 @@ export class FirebaseService {
           if (allyString.length < 6) allies.push(allyString);
         });
       }
+      console.log(allies)
       return allies;
     });
     return from(promise);

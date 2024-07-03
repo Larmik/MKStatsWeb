@@ -9,7 +9,7 @@
     >
       Choix du circuit
     </button>
-    <app-track-item *ngIf="map" [map]="map" (click)="openDialog(index)" />
+    <app-track-item [disabled]="disabled || !isActivated" *ngIf="map" [map]="map" (click)="openDialog(index)" />
     <span class="posShock"> Position | | Shocks</span>
     <span *ngFor="let player of players" class="playerNames">
       {{ player.display_name }}

@@ -3,7 +3,7 @@ import { HeaderComponent } from '../header/header.component';
 import { FirebaseService } from '../../service/firebase.service';
 import { War } from '../../models/war';
 import { Roster, Team } from '../../models/team';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LastResultsComponent } from '../last-results/last-results.component';
 import { WarStatsComponent } from '../war-stats/war-stats.component';
 import { CreateWarComponent } from '../create-war/create-war.component';
@@ -12,6 +12,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { PlayerListComponent } from '../player-list/player-list.component';
 import { MKCentralService } from '../../service/mkcentral.service';
 import { CurrentWarItemComponent } from '../current-war-item/current-war-item.component';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -37,11 +38,13 @@ export class HomeComponent implements OnInit {
   team?: Team;
   players!: Roster[];
   createWarVisible!: Boolean;
-  currentWars!: War[]
+  currentWars!: War[];
 
   database: FirebaseService = inject(FirebaseService);
   local: LocalService = inject(LocalService);
   service: MKCentralService = inject(MKCentralService);
+  auth: AuthService = inject(AuthService);
+  router: Router = inject(Router);
 
   ngOnInit(): void {
     this.wars = [];
@@ -51,61 +54,85 @@ export class HomeComponent implements OnInit {
     this.team = this.local.getTeam();
     this.players = this.local.getPlayers();
     let userRole = this.local.getCurrentUser()?.role ?? 0;
-    if (this.team?.id) {
-
-      this.database.getCurrentWar(this.team.id.toString()).subscribe((war: War) => {
-        if (war)
-          finalCurrentWars.push(war) 
-      });
-    this.database.getWars(this.team?.id.toString()).subscribe((wars: War[]) => {
-        wars.forEach((war) => {
-          finalWars.push(war);
-        });
-        if (this.team?.primary_team_id) {
-          this.database
-            .getWars(this.team?.primary_team_id.toString())
-            .subscribe((wars: War[]) => {
-              wars.forEach((war) => {
-                finalWars.push(war);
-              });
-              this.wars = finalWars.sort((a, b) => a.mid > b.mid ? -1 : 1)
-            });
-            this.database.getCurrentWar(this.team?.primary_team_id.toString()).subscribe((war: War) => {
-              if (war) finalCurrentWars.push(war)
-              this.currentWars = finalCurrentWars
-              this.createWarVisible = userRole >= 1 && this.currentWars.filter(war => war.teamHost == this.team?.id.toString() ).length == 0;
-            });
-        } else if (this.team?.secondary_teams) {
-          this.team?.secondary_teams.forEach((team: any) => {
-            this.database
-            .getWars(team.id.toString())
-            .subscribe((wars: War[]) => {
-              wars.forEach((war) => {
-                finalWars.push(war);
-              });
-              this.wars = finalWars.sort((a, b) => a.mid > b.mid ? -1 : 1)
-            });
-            this.database.getCurrentWar(team.id.toString()).subscribe((war: War) => {
-              if (war) finalCurrentWars.push(war)
-              this.currentWars = finalCurrentWars
-              this.createWarVisible = userRole >= 1 && this.currentWars.filter(war => war.teamHost == this.team?.id.toString() ).length == 0;
-            });
-          })
-        } else  {
-            this.wars = finalWars.sort((a, b) => a.mid > b.mid ? -1 : 1)
-            this.currentWars = finalCurrentWars
-            this.createWarVisible = userRole >= 1 && this.currentWars.filter(war => war.teamHost == this.team?.id.toString() ).length == 0;
-         
-        }
-      });
-
+    if (!this.local.isSessionValid()) {
+      this.logout()
     }
-  
+    if (this.team?.id) {
+      this.database
+        .getWars(this.team?.id.toString())
+        .subscribe((wars: War[]) => {
+          wars.forEach((war) => {
+            finalWars.push(war);
+          });
 
+          this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
+          console.log(this.wars);
+        });
+      if (this.team?.primary_team_id) {
+        this.database
+          .getWars(this.team?.primary_team_id.toString())
+          .subscribe((wars: War[]) => {
+            wars.forEach((war) => {
+              finalWars.push(war);
+            });
+            this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
+            console.log(this.wars);
+          });
+        this.database
+          .getCurrentWar(this.team?.primary_team_id.toString())
+          .subscribe((war: War) => {
+            if (war) finalCurrentWars.push(war);
 
+            this.currentWars = finalCurrentWars;
+            this.createWarVisible =
+              userRole >= 1 &&
+              this.currentWars.filter(
+                (war) => war.teamHost == this.team?.id.toString()
+              ).length == 0;
+          });
+      }
+      if (this.team?.secondary_teams) {
+        this.team?.secondary_teams.forEach((team: any) => {
+          this.database.getWars(team.id.toString()).subscribe((wars: War[]) => {
+            wars.forEach((war) => {
+              finalWars.push(war);
+            });
 
-  
-  
-   
+            this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
+            console.log(this.wars);
+          });
+          this.database
+            .getCurrentWar(team.id.toString())
+            .subscribe((war: War) => {
+              if (war) finalCurrentWars.push(war);
+              this.currentWars = finalCurrentWars;
+              this.createWarVisible =
+                userRole >= 1 &&
+                this.currentWars.filter(
+                  (war) => war.teamHost == this.team?.id.toString()
+                ).length == 0;
+            });
+        });
+      }
+      this.database
+        .getCurrentWar(this.team.id.toString())
+        .subscribe((war: War) => {
+          if (war) finalCurrentWars.push(war);
+          this.currentWars = finalCurrentWars;
+          this.createWarVisible =
+            userRole >= 1 &&
+            this.currentWars.filter(
+              (war) => war.teamHost == this.team?.id.toString()
+            ).length == 0;
+        });
+    }
+  }
+
+  logout() {
+    this.auth.logout();
+    this.local.clearAll();
+    this.router.navigate(['']);
   }
 }
+
+

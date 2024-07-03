@@ -96,7 +96,7 @@ export class WarTrackFormComponent implements OnInit {
     });
 
     if (track) this.track = track;
-    this.isActivated = (currentWar?.warTracks.length ?? 0) >= this.index - 1;
+    this.isActivated = (currentWar?.warTracks.length ?? 0) >= this.index - 1 && !this.disabled;
     this.maps = [...Maps.values()];
     let map = this.maps.find(
       (map: any) =>

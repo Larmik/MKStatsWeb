@@ -290,6 +290,7 @@ export class LoginComponent implements OnInit {
 
   onSignupEnabled(signup: Boolean) {
     this.signup = signup;
+    this.error = undefined
   }
 
   showLoaderDialog(message: string) {
