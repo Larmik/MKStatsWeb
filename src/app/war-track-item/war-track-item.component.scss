@@ -1,0 +1,74 @@
+.active {
+    width: 100%;
+    background-color: #5f9ea0;
+    margin: 10px;
+  }
+  .inactive {
+    width: 100%;
+    background-color: #5f9ea055;
+    margin: 10px;
+  }
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  input {
+    margin: 5px;
+    height: 25px;
+    width: 40px;
+  }
+
+  .playerNames {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    padding-left: 50px;
+  }
+  span {
+    color: white;
+    text-align: end;
+    width: 100%;
+  }
+  .posShock {
+    font-size: small;
+    margin-right: 16px;
+  }
+  mat-card-title {
+    text-align: center;
+    color: white;
+  }
+  app-track-item,
+  app-score-item {
+    width: 100%;
+  }
+  button {
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+  }
+  img {
+    width: 20px;
+    height: 20px;
+  }
+  .inputs {
+    display: flex;
+    align-items: cennter;
+  }
+  .shockContainer {
+    width: 50px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.pos {
+    margin-right: 30px;
+    margin-left: 30px;
+}
+  

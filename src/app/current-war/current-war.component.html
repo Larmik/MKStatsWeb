@@ -1,5 +1,5 @@
 <div class="main">
-    <app-header [war]="war" [players]="players"/>
+    <app-header [currentWar]="war" [players]="players"/>
     <div class="tracks">
         <app-war-track-form *ngFor="let track of warTracks; let index = index;" [index]="index+1" [disabled]="!canEdit"/>
     </div>

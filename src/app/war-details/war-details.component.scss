@@ -1,0 +1,29 @@
+.main {
+    position: relative;
+    top: 195px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #B0E0E6 ;
+}
+app-header {
+    width:100%;
+    position:fixed;
+    background-color: hsl(216, 85%, 13%);
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+app-players-scores {
+    width: 30%;
+}
+.tracks {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+app-war-track-item {
+    margin: 10px;
+}
+

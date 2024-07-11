@@ -6,12 +6,18 @@
   <h1>{{ team.team_name }}</h1>
 </div>
 <div *ngIf="players" class="players">
-  <app-players-scores [players]="players" [war]="war" />
+  <app-players-scores *ngIf="war" [players]="players" [war]="war" />
+  <app-players-scores *ngIf="currentWar" [players]="players" [war]="currentWar" />
+
 </div>
 
-<div *ngIf="war" class="war">
-  <h1>War en cours</h1>
-  <app-war-item [war]="war" />
+<div *ngIf="war || currentWar" class="war">
+  <h1 *ngIf="currentWar">War en cours</h1>
+  <h1 *ngIf="war">Détails war</h1>
+
+  <app-war-item *ngIf="war" [war]="war"  />
+  <app-war-item *ngIf="currentWar" [war]="currentWar"  />
+
 </div>
 
 <div class="logout">
@@ -30,28 +36,28 @@
   </div>
 </div>
 
-<div *ngIf="war" class="warOptions">
-  <button mat-button class="warButtons" (click)="openPenaDialog()" [disabled]="!canEdit">
+<div *ngIf="war || currentWar" class="warOptions">
+  <button mat-button class="warButtons"  *ngIf="currentWar" (click)="openPenaDialog()" [disabled]="!canEdit">
     Pénalité
   </button>
   <button
   [disabled]="!canEdit"
-    *ngIf="war.warTracks.length < 12"
+    *ngIf="currentWar && currentWar.warTracks.length < 12"
     mat-button
     class="warButtons"
     (click)="openSubDialog()"
   >
     Remplacement
   </button>
-  <button [disabled]="!canEdit" *ngIf="war.warTracks.length == 12" mat-button class="warButtons" (click)="openTabDialog()">
+  <button [disabled]="!canEdit" *ngIf="currentWar && currentWar.warTracks.length == 12" mat-button class="warButtons" (click)="openTabDialog()">
     Editer le tab
   </button>
-  <button [disabled]="!canEdit" mat-button class="warButtons" (click)="cancelWar()">
+  <button [disabled]="!canEdit"  *ngIf="currentWar" mat-button class="warButtons" (click)="cancelWar()">
     Annuler la war
   </button>
   <button
   [disabled]="!canEdit"
-    *ngIf="war.warTracks.length == 12"
+    *ngIf="currentWar && currentWar.warTracks.length == 12"
     mat-button
     class="warButtons"
     (click)="validateWar()"
@@ -59,7 +65,7 @@
     Valider la war
   </button>
  <div class="penasShocks">
-  <div *ngIf="penalties.size > 0" class="penalties">
+  <div *ngIf="penalties && penalties.size > 0" class="penalties">
     <span class="penaTitle">Pénalités</span>
     <div class="penaContent">
       <div class="penaTeamColumn">

@@ -25,6 +25,12 @@ export class LocalService {
     localStorage.setItem('allies', rawString);
   }
 
+  public saveWars(wars: War[]) {
+    console.log('saving wars' + wars)
+    let rawString = JSON.stringify(wars);
+    localStorage.setItem('wars', rawString);
+  }
+
   public saveCurrentUser(user: User) {
     let rawString = JSON.stringify(user);
     localStorage.setItem('user', rawString);
@@ -73,6 +79,12 @@ export class LocalService {
     let rawString = localStorage.getItem('team');
     if (rawString != null) return JSON.parse(rawString);
     return undefined;
+  }
+
+  public getWars(): War[] {
+    let rawString = localStorage.getItem('wars');
+    if (rawString != null) return JSON.parse(rawString);
+    return [];
   }
 
   public getCurrentUser(): User | undefined {

@@ -1,0 +1,6 @@
+<div class="main">
+    <app-header [war]="war" [players]="players"/>
+    <div class="tracks">
+        <app-war-track-item *ngFor="let track of warTracks; let index = index;" [index]="index+1" [disabled]="true" [track]="track"/>
+    </div>
+</div>

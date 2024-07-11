@@ -1,7 +1,9 @@
 import {
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   inject,
 } from '@angular/core';
 import {
@@ -43,9 +45,10 @@ import { EditTabComponent } from '../edit-tab/edit-tab.component';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
   @Input() team!: any;
   @Input() war!: War;
+  @Input() currentWar!: War;
   @Input() players!: Player[];
   profilePicture?: string;
   profileName?: string;
@@ -61,6 +64,18 @@ export class HeaderComponent implements OnInit {
 
   constructor(public dialog: MatDialog) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    let shocks: WarShock[] = []
+    this.war.warTracks.forEach(warTrack => {
+      if (warTrack.shocks) {
+        warTrack.shocks.filter(shock => (shock?.count ?? 0) > 0).forEach(shock => shocks.push(shock))
+      }
+    })
+    if (shocks.length > 0)
+      this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
+
+  }
+
   ngOnInit(): void {
     let penas: Map<string, number> = new Map();
     let shocks: WarShock[] = []
@@ -70,7 +85,10 @@ export class HeaderComponent implements OnInit {
     this.profilePicture = current?.picture;
     this.teamPicture =
       'https://www.mariokartcentral.com/mkc/storage/' + team?.team_logo;
+      console.log(this.war)
+
     if (this.war) {
+      console.log(this.war)
       this.canEdit = this.war.playerHostId == current?.mkcId
       this.war.penalties.forEach((pena) => {
         if (team?.team_name && pena?.amount) {
@@ -83,15 +101,32 @@ export class HeaderComponent implements OnInit {
           }
         }
       });
-      this.war.warTracks.forEach(warTrack => {
+      this.penalties = penas;
+    }
+    if (this.currentWar) {
+      this.canEdit = this.currentWar.playerHostId == current?.mkcId
+      this.currentWar.penalties.forEach((pena) => {
+        if (team?.team_name && pena?.amount) {
+          if (pena.teamId == team?.id.toString()) {
+            penas.set(team?.team_name, pena.amount);
+          } else if (pena.teamId) {
+            this.service.getTeamById(pena.teamId).subscribe((team) => {
+              if (pena.amount) penas.set(team.team_name, pena.amount);
+            });
+          }
+        }
+      });
+      this.currentWar.warTracks.forEach(warTrack => {
         if (warTrack.shocks) {
           warTrack.shocks.filter(shock => (shock?.count ?? 0) > 0).forEach(shock => shocks.push(shock))
         }
       })
+      if (shocks.length > 0)
+        this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
+      this.penalties = penas;
+      console.log(shocks)
     }
-    if (shocks.length > 0)
-      this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
-    this.penalties = penas;
+  
   }
 
   cancelWar() {

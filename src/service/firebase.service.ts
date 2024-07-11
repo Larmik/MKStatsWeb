@@ -85,6 +85,18 @@ export class FirebaseService {
     return from(promise);
   }
 
+  public getWar(teamId: string, warId: string): Observable<War> {
+    const warData = ref(this.database, 'newWars/' + teamId + '/' + warId);
+    const wars: War[] = new Array(0);
+    let promise = get(warData).then((snapshot) => {
+      if (snapshot.exists()) {
+       wars.push(War.fromDatasnapshot(snapshot))
+      }
+      return wars[0];
+    });
+    return from(promise);
+  }
+
   public getWars(teamId: string): Observable<War[]> {
     const warData = ref(this.database, 'newWars/' + teamId);
     const wars: War[] = new Array(0);

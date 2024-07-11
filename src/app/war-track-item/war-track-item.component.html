@@ -1,0 +1,20 @@
+<mat-card [ngClass]="'active'">
+    <mat-card-title>Course n°{{ index }}</mat-card-title>
+    <mat-card-content>
+      <app-track-item [disabled]="true" *ngIf="map" [map]="map"  />
+      <span *ngFor="let player of players" class="playerNames">
+        {{ player.display_name }}
+        <div class="inputs">
+            <div class="shockContainer">
+                <img *ngIf="shocks.get(player.player_id.toString())" src="../../assets/images/shock.png"/>
+                <p *ngIf="(shocks.get(player.player_id.toString()) ?? 0) > 1">x{{shocks.get(player.player_id.toString())}}</p>
+             </div>
+         <p class="pos">{{positions.get(player.player_id.toString())}}</p>
+       
+        
+        </div>
+      </span>
+      <app-score-item [track]="track" />
+    </mat-card-content>
+  </mat-card>
+  

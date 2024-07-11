@@ -1,6 +1,6 @@
 <div class="main">
     <span class="title">Derniers résultats</span>
-    <app-war-item *ngFor="let war of wars" [war]="war"></app-war-item>
+    <app-war-item *ngFor="let war of wars" [war]="war" (click)="onWarClicked(war)"></app-war-item>
     <!--
     <a href="" *ngIf="wars">Voir plus</a>
     -->
