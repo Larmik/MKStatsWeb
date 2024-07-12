@@ -1,6 +1,6 @@
 .main {
     position: relative;
-    top: 195px;
+    top: 245px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -17,15 +17,7 @@ app-header {
     top: 0;
     left: 0;
 }
-app-players-scores {
-    width: 30%;
-}
-.tracks {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-app-war-track-item {
-    margin: 10px;
+app-war-stats {
+    width: 40%;
 }
 

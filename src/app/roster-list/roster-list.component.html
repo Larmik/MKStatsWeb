@@ -3,6 +3,7 @@
     <app-player-item
       *ngFor="let player of roster.players"
       [player]="player"
+      (click)="onPlayerClick(player)"
     ></app-player-item>
   </div>
   

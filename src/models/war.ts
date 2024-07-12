@@ -2,6 +2,7 @@ import { DataSnapshot } from '@angular/fire/database';
 import { DatePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { WarEntity } from '../db';
 registerLocaleData(localeFr);
 
 export class War {
@@ -133,6 +134,42 @@ export class War {
       diffScore > 0 ? '+' + diffScore.toString() : diffScore.toString();
     return war;
   }
+
+  public static toEntity(war: War): WarEntity {
+    let entity = new WarEntity()
+    entity.mid = war.mid
+    entity.createdDate = war.createdDate
+    entity.isOfficial = war.isOfficial
+    entity.playerHostId = war.playerHostId
+    entity.teamHost = war.teamHost
+    entity.teamOpponent = war.teamOpponent
+    entity.warTracks = JSON.stringify(war.warTracks)
+    entity.penalties = JSON.stringify(war.penalties)
+    entity.displayedDiff = war.displayedDiff
+    entity.scoreHost = war.scoreHost
+    entity.scoreOpponent = war.scoreOpponent
+    return entity
+  }
+  public static fromEntity(war: WarEntity): War {
+    let entity = new War()
+    entity.mid = war.mid
+    entity.createdDate = war.createdDate
+    entity.isOfficial = war.isOfficial
+    entity.playerHostId = war.playerHostId
+    entity.teamHost = war.teamHost
+    entity.teamOpponent = war.teamOpponent
+    entity.warTracks = JSON.parse(war.warTracks)
+    entity.penalties = JSON.parse(war.penalties)
+    entity.displayedDiff = war.displayedDiff
+    entity.scoreHost = war.scoreHost
+    entity.scoreOpponent = war.scoreOpponent
+    return entity
+  }
+
+  public hasPlayer(playerId: string) {
+    return this.warTracks.flatMap(track => track.warPositions).map(pos => pos?.playerId).includes(playerId)
+  }
+
 }
 
 export class WarTrack {

@@ -11,12 +11,15 @@
 
 </div>
 
-<div *ngIf="war || currentWar" class="war">
+<div *ngIf="war || currentWar || player" class="war">
   <h1 *ngIf="currentWar">War en cours</h1>
   <h1 *ngIf="war">Détails war</h1>
+  <h1 *ngIf="player">{{player.display_name}}</h1>
+
 
   <app-war-item *ngIf="war" [war]="war"  />
   <app-war-item *ngIf="currentWar" [war]="currentWar"  />
+  <app-player-infos *ngIf="player" [player]="player"/>
 
 </div>
 

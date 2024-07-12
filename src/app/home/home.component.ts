@@ -13,6 +13,7 @@ import { PlayerListComponent } from '../player-list/player-list.component';
 import { MKCentralService } from '../../service/mkcentral.service';
 import { CurrentWarItemComponent } from '../current-war-item/current-war-item.component';
 import { AuthService } from '../../service/auth.service';
+import { DatabaseService } from '../../service/database.service';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
   currentWars!: War[];
 
   database: FirebaseService = inject(FirebaseService);
+  newDatabase: DatabaseService = inject(DatabaseService)
   local: LocalService = inject(LocalService);
   service: MKCentralService = inject(MKCentralService);
   auth: AuthService = inject(AuthService);
@@ -66,6 +68,7 @@ export class HomeComponent implements OnInit {
           });
 
           this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
+          this.newDatabase.writeWars(this.wars)
           console.log(this.wars);
         });
       if (this.team?.primary_team_id) {
@@ -76,6 +79,7 @@ export class HomeComponent implements OnInit {
               finalWars.push(war);
             });
             this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
+            this.newDatabase.writeWars(this.wars)
             console.log(this.wars);
           });
         this.database
@@ -99,6 +103,7 @@ export class HomeComponent implements OnInit {
             });
 
             this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
+            this.newDatabase.writeWars(this.wars)
             console.log(this.wars);
           });
           this.database
@@ -131,6 +136,7 @@ export class HomeComponent implements OnInit {
   logout() {
     this.auth.logout();
     this.local.clearAll();
+    this.newDatabase.clear()
     this.router.navigate(['']);
   }
 }

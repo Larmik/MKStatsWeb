@@ -8,6 +8,7 @@ export class PlayerScore {
   tracksPlayed?: number;
   country?: string
   score!: number;
+  shockCount!: number
 }
 
 @Component({
@@ -42,8 +43,17 @@ export class PlayersScoresComponent implements OnInit {
         if (positionForPlayer) {
           let score = new PlayerScore();
           let points = WarPosition.positionToPoints(positionForPlayer);
+          var shockCount = 0
+          this.war.warTracks.forEach(track => {
+            track.shocks?.forEach(shock => {
+              if (shock.playerId == player.player_id.toString()) {
+                shockCount += shock.count ?? 0
+              }
+            })
+          })
           score.name = player.display_name;
           score.score = scoreForPlayer + points;
+          score.shockCount = shockCount
           if (tracksPlayed < this.war.warTracks.length)
             score.tracksPlayed = tracksPlayed;
           if (

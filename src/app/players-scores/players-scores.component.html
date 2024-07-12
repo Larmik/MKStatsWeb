@@ -10,4 +10,10 @@
   <div class="scoresColumn">
     <span *ngFor="let score of scores">{{ score.score }}</span>
   </div>
+  <div class="shocksColumn">
+    <div *ngFor="let score of scores" class="shockContainer">
+      <img *ngIf="score.shockCount > 0" src="../../assets/images/shock.png"/>
+      <span *ngIf="score.shockCount > 0">x{{score.shockCount}}</span>
+   </div>
+  </div>
 </div>

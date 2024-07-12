@@ -1,0 +1,21 @@
+<div class="main">
+    <div *ngIf="fullPlayer.profile_picture" class="profileColumn">
+        <img
+        class="profilePicture"
+        [src]="fullPlayer.profile_picture"
+      />
+        <span>{{fullPlayer.profile_message}}</span>
+    </div>
+<div class="labelColumn"> 
+    <span>Inscrit depuis le</span>
+    <span>Equipe actuelle</span>
+    <span>Code ami</span>
+    <span>Rôle</span>
+</div>
+<div class="infosColumn"> 
+    <span>{{player.registered_since_human}}</span>
+    <span>{{fullPlayer.current_teams[0].team_name}}</span>
+    <span>{{player.custom_field}}</span>
+    <span>{{role}}</span>
+</div>
+  </div>

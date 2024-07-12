@@ -26,6 +26,8 @@ import { MKCentralService } from '../../service/mkcentral.service';
 import { FirebaseService } from '../../service/firebase.service';
 import { AuthService } from '../../service/auth.service';
 import { EditTabComponent } from '../edit-tab/edit-tab.component';
+import { PlayerInfosComponent } from '../player-infos/player-infos.component';
+import { DatabaseService } from '../../service/database.service';
 
 @Component({
   selector: 'app-header',
@@ -40,6 +42,7 @@ import { EditTabComponent } from '../edit-tab/edit-tab.component';
     PlayersScoresComponent,
     SubPlayerComponent,
     AddPenaltyComponent,
+    PlayerInfosComponent,
     NgFor,
   ],
   templateUrl: './header.component.html',
@@ -50,12 +53,14 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() war!: War;
   @Input() currentWar!: War;
   @Input() players!: Player[];
+  @Input() player?: Player;
   profilePicture?: string;
   profileName?: string;
   teamPicture!: string;
   local: LocalService = inject(LocalService);
   service: MKCentralService = inject(MKCentralService);
   firebase: FirebaseService = inject(FirebaseService);
+  database: DatabaseService = inject(DatabaseService)
   auth: AuthService = inject(AuthService);
   router: Router = inject(Router);
   penalties!: Map<string, number>;
@@ -65,15 +70,18 @@ export class HeaderComponent implements OnInit, OnChanges {
   constructor(public dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    let shocks: WarShock[] = []
-    this.war.warTracks.forEach(warTrack => {
-      if (warTrack.shocks) {
-        warTrack.shocks.filter(shock => (shock?.count ?? 0) > 0).forEach(shock => shocks.push(shock))
-      }
-    })
-    if (shocks.length > 0)
-      this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
-
+    if (this.war) {
+      let shocks: WarShock[] = []
+      this.war.warTracks.forEach(warTrack => {
+        if (warTrack.shocks) {
+          warTrack.shocks.filter(shock => (shock?.count ?? 0) > 0).forEach(shock => shocks.push(shock))
+        }
+      })
+      if (shocks.length > 0)
+        this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
+  
+    }
+   
   }
 
   ngOnInit(): void {
@@ -85,7 +93,6 @@ export class HeaderComponent implements OnInit, OnChanges {
     this.profilePicture = current?.picture;
     this.teamPicture =
       'https://www.mariokartcentral.com/mkc/storage/' + team?.team_logo;
-      console.log(this.war)
 
     if (this.war) {
       console.log(this.war)
@@ -126,6 +133,9 @@ export class HeaderComponent implements OnInit, OnChanges {
       this.penalties = penas;
       console.log(shocks)
     }
+    if (this.player) {
+      console.log(this.player)
+    }
   
   }
 
@@ -164,6 +174,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   logout() {
     this.auth.logout();
     this.local.clearAll();
+    this.database.clear()
     this.router.navigate(['']);
   }
 

@@ -18,4 +18,9 @@
     margin: 5px;
     border-radius: 10px;
   }
+  app-player-item:hover {
+    cursor: pointer;
+    background-color: hsl(216, 85%, 13%);
+    color: white
+  }
   

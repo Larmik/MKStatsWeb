@@ -23,15 +23,16 @@ export class WarStatsComponent implements OnChanges {
   winrate!: number;
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.stats)
     this.warsPlayed = this.stats.length;
-    this.warsWon = this.stats.filter((war: any) =>
-      war.displayedDiff.includes('+')
+    this.warsWon = this.stats.filter((war: War) =>
+      war.displayedDiff?.includes('+')
     ).length;
     this.warsTied = this.stats.filter(
-      (war: any) => war.displayedDiff == '0'
+      (war: War) => war.displayedDiff == '0'
     ).length;
-    this.warsLoss = this.stats.filter((war: any) =>
-      war.displayedDiff.includes('-')
+    this.warsLoss = this.stats.filter((war: War) =>
+      war.displayedDiff?.includes('-')
     ).length;
     if (this.warsPlayed > 0)
       this.winrate = Math.round((this.warsWon*100)/this.warsPlayed)

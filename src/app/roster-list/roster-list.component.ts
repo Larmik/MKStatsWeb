@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { Roster } from '../../models/team';
+import { Component, Input, inject } from '@angular/core';
+import { Player, Roster } from '../../models/team';
 import { NgFor } from '@angular/common';
 import { PlayerItemComponent } from '../player-item/player-item.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-roster-list',
@@ -12,4 +13,11 @@ import { PlayerItemComponent } from '../player-item/player-item.component';
 })
 export class RosterListComponent {
   @Input() roster!: Roster;
+  router: Router = inject(Router);
+
+  onPlayerClick(player: Player) {
+    this.router.navigate(['/player/' + player.player_id.toString()]);
+  }
+
+  
 }

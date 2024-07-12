@@ -1,0 +1,48 @@
+
+.main {
+    padding: 20px;
+    background-color: #ffffffaa;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    color: black;
+  }
+
+  .profileColumn {
+    display: flex;
+    margin-right: 20px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-weight: lighter;
+    margin-right: 50px;
+  }
+  .labelColumn {
+    display: flex;
+    margin-right: 20px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    font-weight: lighter;
+  }
+  .infosColumn {
+    display: flex;
+    min-width: 70px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+  }
+  span {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  
+  
