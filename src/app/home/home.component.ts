@@ -48,17 +48,8 @@ export class HomeComponent implements OnInit {
   auth: AuthService = inject(AuthService);
   router: Router = inject(Router);
 
-  ngOnInit(): void {
-    this.wars = [];
-    this.currentWars = [];
+  private fetchWars() {
     let finalWars: War[] = [];
-    let finalCurrentWars: War[] = [];
-    this.team = this.local.getTeam();
-    this.players = this.local.getPlayers();
-    let userRole = this.local.getCurrentUser()?.role ?? 0;
-    if (!this.local.isSessionValid()) {
-      this.logout()
-    }
     if (this.team?.id) {
       this.database
         .getWars(this.team?.id.toString())
@@ -69,7 +60,6 @@ export class HomeComponent implements OnInit {
 
           this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
           this.newDatabase.writeWars(this.wars)
-          console.log(this.wars);
         });
       if (this.team?.primary_team_id) {
         this.database
@@ -80,8 +70,31 @@ export class HomeComponent implements OnInit {
             });
             this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
             this.newDatabase.writeWars(this.wars)
-            console.log(this.wars);
           });
+      }
+      if (this.team?.secondary_teams) {
+        this.team?.secondary_teams.forEach((team: any) => {
+          this.database.getWars(team.id.toString()).subscribe((wars: War[]) => {
+            wars.forEach((war) => {
+              finalWars.push(war);
+            });
+
+            this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
+            this.newDatabase.writeWars(this.wars)
+          });
+        });
+      }
+    }
+  }
+
+  private fetchCurrentWars() {
+    let finalCurrentWars: War[] = [];
+    let userRole = this.local.getCurrentUser()?.role ?? 0;
+
+    if (this.team?.id) {
+     
+      if (this.team?.primary_team_id) {
+       
         this.database
           .getCurrentWar(this.team?.primary_team_id.toString())
           .subscribe((war: War) => {
@@ -97,15 +110,6 @@ export class HomeComponent implements OnInit {
       }
       if (this.team?.secondary_teams) {
         this.team?.secondary_teams.forEach((team: any) => {
-          this.database.getWars(team.id.toString()).subscribe((wars: War[]) => {
-            wars.forEach((war) => {
-              finalWars.push(war);
-            });
-
-            this.wars = finalWars.sort((a, b) => (a.mid > b.mid ? -1 : 1));
-            this.newDatabase.writeWars(this.wars)
-            console.log(this.wars);
-          });
           this.database
             .getCurrentWar(team.id.toString())
             .subscribe((war: War) => {
@@ -131,6 +135,24 @@ export class HomeComponent implements OnInit {
             ).length == 0;
         });
     }
+  }
+
+  ngOnInit(): void {
+    this.wars = [];
+    this.currentWars = [];
+    this.team = this.local.getTeam();
+    this.players = this.local.getPlayers();
+    if (!this.local.isSessionValid()) {
+      this.logout()
+    }
+    this.newDatabase.getWars().subscribe(wars => {
+      if (wars.length == 0) {
+        this.fetchWars()
+      } else {
+        this.wars = wars.map(war => War.fromEntity(war))
+      }
+    })
+    this.fetchCurrentWars()
   }
 
   logout() {
