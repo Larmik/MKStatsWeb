@@ -1,0 +1,32 @@
+<div class="main">
+  <span class="title">Records</span>
+  <div class="mainStats">
+    <div class="vnd">
+      <span class="subtitle">Individuel</span>
+      <div class="subview">
+        <div class="vndView">
+          <span>Pire score</span>
+          <span class="vndValue">{{ stats.lowestPlayerScore?.first }}</span>
+        </div>
+        <div class="vndView">
+          <span>Meilleur score</span>
+          <span class="vndValue">{{ stats.highestPlayerScore?.first }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vnd">
+      <span class="subtitle">Equipe</span>
+      <div class="subview">
+        <div class="vndView">
+          <span>Plus large victoire</span>
+          <span class="vndValue">{{ victoryLabel }}</span>
+        </div>
+        <div class="vndView">
+          <span>Plus lourde défaite</span>
+          <span class="vndValue">{{ defeatLabel }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

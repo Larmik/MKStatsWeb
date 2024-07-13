@@ -1,17 +1,14 @@
 <div class="main">
     <app-header [player]="player" />
     <app-war-stats [stats]="wars"/>
-    <span>Meilleur score: {{stats.highestPlayerScore?.first}}</span>
-    <span>Pire score: {{stats.lowestPlayerScore?.first}}</span>
-    <span>Score moyen: {{stats.averagePointsLabel}}</span>
-    <span>Position moyenne: {{stats.averagePlayerPosition}}</span>
-    <span>Shocks/war: {{stats.shockCount}}</span>
-    <span>Adversaire plus joué: {{stats.mostPlayedTeam?.team.team_name}}</span>
-    <span>Adversaire plus vaincu: {{stats.mostDefeatedTeam?.team.team_name}}</span>
-    <span>Adversaire moins vaincu: {{stats.lessDefeatedTeam?.team.team_name}}</span>
-    <span>Plus large victoire: {{victoryLabel}}</span>
-    <span>Plus lourde défaite: {{defeatLabel}}</span>
-    <span>Circuit le plus joué: {{stats.mostPlayedMap?.map?.name}}</span>
-    <span>Meilleur circuit: {{stats.bestPlayerMap?.map?.name}}</span>
-    <span>Pire circuit: {{stats.worstPlayerMap?.map?.name}}</span>
+    <div class="row">
+        <app-stats-averages-item [stats]="stats"/>
+        <app-stats-records-item [stats]="stats"/>
+    </div>
+    <div class="row">
+
+    <app-stats-opponents-item [stats]="stats"/>
+    <app-stats-maps-item [stats]="stats"/>
+</div>
+
 </div>

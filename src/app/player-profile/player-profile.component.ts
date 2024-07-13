@@ -18,11 +18,16 @@ import { MKCentralService } from '../../service/mkcentral.service';
 import { Maps } from '../../models/maps';
 import { ListUtils } from '../../utils/list.utils';
 import { NumberUtils } from '../../utils/number.utils';
+import { StatsAveragesItemComponent } from '../stats-averages-item/stats-averages-item.component';
+import { StatsRecordsItemComponent } from '../stats-records-item/stats-records-item.component';
+import { StatsOpponentsItemComponent } from '../stats-opponents-item/stats-opponents-item.component';
+import { StatsMapsItemComponent } from '../stats-maps-item/stats-maps-item.component';
+import { StatsComponent } from "../stats/stats.component";
 
 @Component({
   selector: 'app-player-profile',
   standalone: true,
-  imports: [HeaderComponent, WarStatsComponent, NgIf],
+  imports: [HeaderComponent, WarStatsComponent, NgIf, StatsAveragesItemComponent, StatsRecordsItemComponent, StatsOpponentsItemComponent, StatsMapsItemComponent, StatsComponent],
   templateUrl: './player-profile.component.html',
   styleUrl: './player-profile.component.scss',
 })

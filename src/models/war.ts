@@ -159,7 +159,8 @@ export class War {
     entity.playerHostId = war.playerHostId
     entity.teamHost = war.teamHost
     entity.teamOpponent = war.teamOpponent
-    entity.warTracks = JSON.parse(war.warTracks).map((track: WarTrackEntity) => WarTrack.fromEntity(track))
+    console.log(JSON.parse(war.warTracks))
+    entity.warTracks = JSON.parse(war.warTracks).map((track: string) => WarTrack.fromEntity(JSON.parse(track)))
     entity.penalties = JSON.parse(war.penalties)
     entity.displayedDiff = war.displayedDiff
     entity.scoreHost = war.scoreHost

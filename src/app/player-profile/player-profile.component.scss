@@ -17,7 +17,17 @@ app-header {
     top: 0;
     left: 0;
 }
-app-war-stats {
-    width: 40%;
+app-war-stats   {
+    width: 30%;
+}
+ app-stats-records-item , app-stats-opponents-item, app-stats-maps-item{
+    width:100%;
+}
+app-stats-averages-item {
+    width:60%;
+}
+.row {
+    display:flex;
+    width: 80%;
 }
 

@@ -1,0 +1,65 @@
+.mainStats {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #5f9ea0AA;
+    border: 3px solid black;
+    align-items: center;
+    margin: 10px;
+    padding-bottom: 20px;
+  }
+  .title {
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: x-large;
+  }
+  .vnd {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+  }
+ 
+  .vndView {
+  
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .stats {
+    display:flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-bottom: 10px;
+  }
+  span {
+    width: 100%;
+    text-align: center;
+    font-size: small;
+  }
+  .subview {
+    display:flex;
+    background-color: #ffffffaa;
+    border-radius: 10px;
+  }
+  .subtitle {
+    color:white;
+    font-weight: bold;
+  }
+  .vndValue {
+    font-size: x-large;
+    font-weight: bold;
+  }
+  
