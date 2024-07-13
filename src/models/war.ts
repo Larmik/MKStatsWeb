@@ -2,7 +2,8 @@ import { DataSnapshot } from '@angular/fire/database';
 import { DatePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { WarEntity } from '../db';
+import { WarEntity, WarTrackEntity } from '../db';
+import { NumberUtils } from '../utils/number.utils';
 registerLocaleData(localeFr);
 
 export class War {
@@ -143,8 +144,8 @@ export class War {
     entity.playerHostId = war.playerHostId
     entity.teamHost = war.teamHost
     entity.teamOpponent = war.teamOpponent
-    entity.warTracks = JSON.stringify(war.warTracks)
-    entity.penalties = JSON.stringify(war.penalties)
+    entity.warTracks = JSON.stringify(war.warTracks.map(track => JSON.stringify(track.toEntity())))
+    entity.penalties = JSON.stringify(war.penalties.map(penalty => JSON.stringify(penalty)))
     entity.displayedDiff = war.displayedDiff
     entity.scoreHost = war.scoreHost
     entity.scoreOpponent = war.scoreOpponent
@@ -158,7 +159,7 @@ export class War {
     entity.playerHostId = war.playerHostId
     entity.teamHost = war.teamHost
     entity.teamOpponent = war.teamOpponent
-    entity.warTracks = JSON.parse(war.warTracks)
+    entity.warTracks = JSON.parse(war.warTracks).map((track: WarTrackEntity) => WarTrack.fromEntity(track))
     entity.penalties = JSON.parse(war.penalties)
     entity.displayedDiff = war.displayedDiff
     entity.scoreHost = war.scoreHost
@@ -167,19 +168,44 @@ export class War {
   }
 
   public hasPlayer(playerId: string) {
-    return this.warTracks.flatMap(track => track.warPositions).map(pos => pos?.playerId).includes(playerId)
+    return this.warTracks.length == this.warTracks.filter(value => value.warPositions?.find(pos => pos.playerId == playerId) != undefined).length
   }
 
 }
 
 export class WarTrack {
-  mid?: string;
+  mid!: string;
   trackIndex?: number;
   warPositions?: WarPosition[];
   shocks?: WarShock[];
   teamScore?: number;
   opponentScore?: number;
   diffScore?: number;
+
+  public toEntity(): WarTrackEntity {
+    let entity = new WarTrackEntity()
+    entity.mid = this.mid
+    entity.trackIndex = this.trackIndex
+    entity.warPositions = JSON.stringify(this.warPositions)
+    entity.shocks = JSON.stringify(this.shocks)
+    entity.teamScore = this.teamScore
+    entity.opponentScore = this.opponentScore
+    entity.diffScore = this.diffScore
+    return entity
+  }
+
+  public static fromEntity(entity: WarTrackEntity): WarTrack {
+    let track = new WarTrack()
+    track.mid = entity.mid
+    track.trackIndex = entity.trackIndex
+    track.warPositions = JSON.parse(entity.warPositions)
+    track.shocks = JSON.parse(entity.shocks)
+    track.teamScore = entity.teamScore
+    track.opponentScore = entity.opponentScore
+    track.diffScore = entity.diffScore
+    return track
+  }
+  
 
   public static fromDatasnapshot(snapshot: DataSnapshot): WarTrack {
     let instance = new WarTrack();
@@ -199,7 +225,7 @@ export class WarTrack {
     instance.warPositions = positions;
     instance.shocks = shocks;
     instance.teamScore = positions
-      .map((pos) => WarPosition.positionToPoints(pos))
+      .map((pos) => NumberUtils.positionToPoints(pos.position ?? 0))
       .reduce((sum, current) => sum + current);
     instance.opponentScore =
       instance.teamScore == 0 ? 0 : 82 - instance.teamScore;
@@ -229,7 +255,7 @@ export class WarTrack {
     warTrack.warPositions = positions;
     warTrack.shocks = shocks;
     warTrack.teamScore = positions
-      .map((pos) => WarPosition.positionToPoints(pos))
+      .map((pos) => NumberUtils.positionToPoints(pos.position ?? 0))
       .reduce((sum, current) => sum + current);
     warTrack.opponentScore =
       warTrack.teamScore == 0 ? 0 : 82 - warTrack.teamScore;
@@ -271,36 +297,6 @@ export class WarPosition {
     return instance;
   }
 
-  public static positionToPoints(pos: WarPosition): number {
-    switch (pos.position) {
-      case 1:
-        return 15;
-      case 2:
-        return 12;
-      case 3:
-        return 10;
-      case 4:
-        return 9;
-      case 5:
-        return 8;
-      case 6:
-        return 7;
-      case 7:
-        return 6;
-      case 8:
-        return 5;
-      case 9:
-        return 4;
-      case 10:
-        return 3;
-      case 11:
-        return 2;
-      case 12:
-        return 1;
-      default:
-        return 0;
-    }
-  }
 }
 
 export class WarShock {

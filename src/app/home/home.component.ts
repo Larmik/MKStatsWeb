@@ -149,7 +149,7 @@ export class HomeComponent implements OnInit {
       if (wars.length == 0) {
         this.fetchWars()
       } else {
-        this.wars = wars.map(war => War.fromEntity(war))
+        this.wars = wars.map(war => War.fromEntity(war)).reverse()
       }
     })
     this.fetchCurrentWars()

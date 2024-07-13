@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Player } from '../../models/team';
 import { NgFor, NgIf } from '@angular/common';
 import { War, WarPosition, WarTrack } from '../../models/war';
+import { NumberUtils } from '../../utils/number.utils';
 
 export class PlayerScore {
   name!: string;
@@ -42,7 +43,7 @@ export class PlayersScoresComponent implements OnInit {
           )?.score ?? 0;
         if (positionForPlayer) {
           let score = new PlayerScore();
-          let points = WarPosition.positionToPoints(positionForPlayer);
+          let points = NumberUtils.positionToPoints(positionForPlayer.position ?? 0);
           var shockCount = 0
           this.war.warTracks.forEach(track => {
             track.shocks?.forEach(shock => {

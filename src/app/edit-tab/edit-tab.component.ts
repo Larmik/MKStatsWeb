@@ -8,6 +8,7 @@ import { Player } from '../../models/team';
 import { PlayerScore } from '../players-scores/players-scores.component';
 import { WarPosition, WarTrack } from '../../models/war';
 import { MKCentralService } from '../../service/mkcentral.service';
+import { NumberUtils } from '../../utils/number.utils';
 
 @Component({
   selector: 'app-edit-tab',
@@ -95,7 +96,7 @@ export class EditTabComponent implements OnInit {
           )?.score ?? 0;
         if (positionForPlayer) {
           let score = new PlayerScore();
-          let points = WarPosition.positionToPoints(positionForPlayer);
+          let points = NumberUtils.positionToPoints(positionForPlayer.position ?? 0);
           score.name = player.display_name;
           score.score = scoreForPlayer + points;
           score.country = player.country_code.toLowerCase()

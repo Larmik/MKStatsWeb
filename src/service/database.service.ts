@@ -16,6 +16,10 @@ import { Observable, from } from 'rxjs';
         return from(db.wars.toArray());
       }
 
+      public getWar(warId: string): Observable<WarEntity | undefined> {
+        return from(db.wars.where({mid: warId}).first())
+      }
+
     public async clear() {
        await db.wars.clear()
     }

@@ -13,6 +13,15 @@ export class WarEntity {
     scoreOpponent?: number;
     displayedDiff?: string;
 }
+export class WarTrackEntity {
+  mid: string = ''
+  trackIndex?: number;
+  warPositions: string = '';
+  shocks: string = '';
+  teamScore?: number;
+  opponentScore?: number;
+  diffScore?: number;
+}
 export class AppDB extends Dexie {
   wars!: Table<WarEntity, number>;
 

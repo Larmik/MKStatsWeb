@@ -2,11 +2,12 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { War } from '../../models/war';
 import { MKCentralService } from '../../service/mkcentral.service';
 import { LocalService } from '../../service/local.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-war-item',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './war-item.component.html',
   styleUrl: './war-item.component.scss',
 })
