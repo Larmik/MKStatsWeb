@@ -81,7 +81,6 @@ export class HeaderComponent implements OnInit, OnChanges {
         this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
   
     }
-   
   }
 
   ngOnInit(): void {
@@ -91,11 +90,9 @@ export class HeaderComponent implements OnInit, OnChanges {
     let team = this.local.getTeam();
     this.profileName = current?.name;
     this.profilePicture = current?.picture;
-    this.teamPicture =
-      'https://www.mariokartcentral.com/mkc/storage/' + team?.team_logo;
+    this.teamPicture = 'https://www.mariokartcentral.com/mkc/storage/' + team?.team_logo;
 
     if (this.war) {
-      console.log(this.war)
       this.canEdit = this.war.playerHostId == current?.mkcId
       this.war.penalties.forEach((pena) => {
         if (team?.team_name && pena?.amount) {
@@ -131,10 +128,6 @@ export class HeaderComponent implements OnInit, OnChanges {
       if (shocks.length > 0)
         this.shockCount = shocks.map((shock) => shock.count).reduce((sum, current) => (sum ?? 0) + (current ?? 0))
       this.penalties = penas;
-      console.log(shocks)
-    }
-    if (this.player) {
-      console.log(this.player)
     }
   
   }

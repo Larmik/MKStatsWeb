@@ -14,8 +14,21 @@ img {
   background-color: #ffffffaa;
   border-radius: 10px;
   color: black;
+  padding: 10px;
+  min-height: 120px;
 }
 span {
-  font-size: small;
   text-align: center;
+}
+
+.mapName {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.mapAbreviation {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.statsLabel {
+  font-size: 0.8em;
 }

@@ -1,30 +1,34 @@
 <div class="main">
   <span class="title">Records</span>
-  <div class="mainStats">
-    <div class="vnd">
+  <div *ngIf="stats" class="mainStats">
+    <div class="recordSection">
       <span class="subtitle">Individuel</span>
       <div class="subview">
         <div class="vndView">
-          <span>Pire score</span>
+          <span class="label">Pire score</span>
           <span class="vndValue">{{ stats.lowestPlayerScore?.first }}</span>
+          <span>{{ lowestScoreWar }}</span>
+          <span>{{ stats.lowestPlayerScore?.second?.createdDate }}</span>
         </div>
         <div class="vndView">
-          <span>Meilleur score</span>
+          <span class="label">Meilleur score</span>
           <span class="vndValue">{{ stats.highestPlayerScore?.first }}</span>
+          <span>{{ highestScoreWar }}</span>
+          <span>{{ stats.highestPlayerScore?.second?.createdDate }}</span>
         </div>
       </div>
     </div>
 
-    <div class="vnd">
+    <div class="recordSection">
       <span class="subtitle">Equipe</span>
       <div class="subview">
         <div class="vndView">
-          <span>Plus large victoire</span>
-          <span class="vndValue">{{ victoryLabel }}</span>
+          <span class="label">Plus large victoire</span>
+          <app-war-item [war]="stats.warStats.highestVicory"/>
         </div>
         <div class="vndView">
-          <span>Plus lourde défaite</span>
-          <span class="vndValue">{{ defeatLabel }}</span>
+          <span class="label">Plus lourde défaite</span>
+          <app-war-item [war]="stats.warStats.loudestDefeat"/>
         </div>
       </div>
     </div>

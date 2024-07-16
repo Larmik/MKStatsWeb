@@ -24,8 +24,6 @@
   .vnd {
     width: 80%;
     display: flex;
-    background-color: #ffffffaa;
-    border-radius: 10px;
     padding: 10px;
     justify-content: space-between;
   }
@@ -57,6 +55,39 @@
   span {
     width: 100%;
     text-align: center;
-    font-size: small;
+  }
+  .teamName {
+    font-size: large;
+    font-weight: bold;
+} 
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.teamLogo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffaa;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+  .subtitle {
+    color:white;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+  app-opponent-item {
+    width:100%;
+    margin: 10px;
   }
   

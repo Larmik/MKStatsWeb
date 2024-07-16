@@ -1,23 +1,36 @@
 <div class="main">
-    <span class="title">Adversaires</span>
-    <div class="mainStats">
-     
-      <div class="vnd">
-        <div class="vndView">
-          <span>Le plus joué</span>
-          <span class="vndValue">{{ stats.mostPlayedTeam?.team.team_name }}</span>
+  <span class="title">Adversaires</span>
+  <div class="mainStats">
+    <div class="vnd">
+      <div class="vndView">
+        <span class="subtitle">Les plus joués</span>
+        <div class="row">
+          <app-opponent-item
+            *ngFor="let team of stats.mostPlayedTeam"
+            [teamStats]="team"
+          />
         </div>
         <div class="vndView">
-          <span>Le plus gagné</span>
-          <span class="vndValue">{{ stats.mostDefeatedTeam?.team.team_name }}</span>
-        </div>
-        <div class="vndView">
-            <span>Le plus perdu</span>
-            <span class="vndValue">{{ stats.lessDefeatedTeam?.team.team_name}}</span>
+          <span class="subtitle">Les plus gagnés</span>
+          <div class="row">
+            <app-opponent-item
+              *ngFor="let team of stats.mostDefeatedTeam"
+              [teamStats]="team"
+              label="gagnées"
+            />
           </div>
+        </div>
+        <div class="vndView">
+          <span class="subtitle">Les plus perdus</span>
+          <div class="row">
+            <app-opponent-item
+              *ngFor="let team of stats.lessDefeatedTeam"
+              [teamStats]="team"
+              label="perdues"
+            />
+          </div>
+        </div>
       </div>
-    
-    
-     
     </div>
   </div>
+</div>

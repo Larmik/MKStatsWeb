@@ -22,6 +22,7 @@ import { FirebaseError } from '@angular/fire/app';
 import { NgIf } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoaderComponent } from '../loader/loader.component';
+import { DatabaseService } from '../../service/database.service';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
   private firebase: FirebaseService = inject(FirebaseService);
   private local: LocalService = inject(LocalService);
   private service: MKCentralService = inject(MKCentralService);
+  private database: DatabaseService = inject(DatabaseService)
   private router: Router = inject(Router);
   error?: string;
 
@@ -94,11 +96,9 @@ export class LoginComponent implements OnInit {
                         team.secondary_teams.forEach((team: any) => {
                           this.service.getTeamById(team.id.toString())
                           .subscribe((team: any) => {
-                            console.log(team)
                             let teamToAdd = new Team(team)
                             if (newTeam.id != teamToAdd.id)
                               players.push(new Roster(teamToAdd, teamToAdd.roster))
-                            console.log("players length : " + players.length + " length " + length)
                             if (players.length == length) {
                                 players.push(new Roster(newTeam, newTeam.roster))
                                 this.local.savePlayers(players)
@@ -117,7 +117,6 @@ export class LoginComponent implements OnInit {
                       }
                     })
                   } else if (team.secondary_teams && team.secondary_teams.length > 0) {
-                    console.log("secondary")
                     let length = team.secondary_teams.length
                     team.secondary_teams.forEach((team: any) => {
                       this.service.getTeamById(team.id.toString())
@@ -185,7 +184,6 @@ export class LoginComponent implements OnInit {
             );
             if (current) {
               this.local.saveCurrentUser(current);
-              console.log(current.mkcId)
               this.showLoaderDialog("Récupération du joueur...")
               this.service.getPlayerById(current.mkcId ?? '').subscribe(
                 (player: any) => {
@@ -212,7 +210,6 @@ export class LoginComponent implements OnInit {
                                   let teamToAdd = new Team(team)
                                   if (newTeam.id != teamToAdd.id)
                                     players.push(new Roster(teamToAdd, teamToAdd.roster))
-                                  console.log("players length : " + players.length + " length " + length)
                                   if (players.length == length) {
                                     players.push(new Roster(newTeam, newTeam.roster))
                                       this.local.savePlayers(players)
@@ -317,8 +314,14 @@ export class LoginComponent implements OnInit {
           allies.push(new Player(player, true));
           if (allies.length == alliesStr.length) {
             this.local.saveAllies(allies);
-            this.dialog.closeAll()
-            this.router.navigate(['/home']);
+            this.showLoaderDialog("Récupération des équipes...")
+            this.service.getTeams("150cc")
+            .subscribe((teams: {count: number, data: Team[]}) => {
+              console.log(teams.data)
+              this.database.writeTeams(teams.data)
+              this.dialog.closeAll()
+              this.router.navigate(['/home']);
+            })
           }
         });
     });

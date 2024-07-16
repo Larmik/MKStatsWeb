@@ -13,6 +13,9 @@ export class MKCentralService {
   getTeamById(id: string): Observable<any> {
     return this.http.get(`${this.registryUrl}/teams/${id}`);
   }
+  getTeams(mode: string): Observable<any> {
+    return this.http.get(`${this.registryUrl}/teams/category/${mode}`);
+  }
 
   getPlayerById(id: string): Observable<any> {
     return this.http.get(`${this.registryUrl}/players/${id}`);

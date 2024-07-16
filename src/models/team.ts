@@ -1,3 +1,5 @@
+import { TeamEntity } from "../db";
+
 export class Team {
   id: number;
   primary_team_id: number;
@@ -33,6 +35,24 @@ export class Team {
       (player: any) => new Player(player, false)
     );
     else this.roster = []
+  }
+  
+  public static toEntity(team: any): TeamEntity {
+    let entity = new TeamEntity()
+    console.log(team)
+    entity.mid = team.team_id.toString()
+    entity.primary_team_id = team.primary_team_id
+    entity.primary_team_name = team.primary_team_name
+    entity.team_name = team.team_name
+    entity.team_tag = team.team_tag
+    entity.team_color = team.team_color
+    entity.team_description = team.team_description
+    entity.team_logo = team.team_logo
+    entity.main_language = team.main_language
+    entity.recruitment_status = team.recruitment_status
+    entity.team_status = team.team_status
+    entity.is_historical = team.is_historical
+    return entity
   }
 }
 

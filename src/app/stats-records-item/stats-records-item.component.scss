@@ -1,5 +1,6 @@
 .mainStats {
     display: flex;
+    flex-direction: column;
     align-items: center;
     width: 100%;
   }
@@ -20,7 +21,7 @@
     margin-bottom: 20px;
     font-size: x-large;
   }
-  .vnd {
+  .recordSection {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -34,32 +35,41 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+    padding: 10px;
+    background-color: #ffffffaa;
+    border-radius: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
   }
   
   .stats {
     display:flex;
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
     margin-bottom: 10px;
   }
   span {
     width: 100%;
     text-align: center;
-    font-size: small;
   }
   .subview {
     display:flex;
-    background-color: #ffffffaa;
-    border-radius: 10px;
   }
   .subtitle {
     color:white;
     font-weight: bold;
+    margin-bottom: 10px;
   }
   .vndValue {
     font-size: x-large;
     font-weight: bold;
+  }
+  app-war-item {
+    width:100%;
+  }
+  .label {
+    font-size: 0.8em;
   }
   

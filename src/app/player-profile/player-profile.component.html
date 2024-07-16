@@ -1,14 +1,14 @@
 <div class="main">
-    <app-header [player]="player" />
-    <app-war-stats [stats]="wars"/>
-    <div class="row">
-        <app-stats-averages-item [stats]="stats"/>
-        <app-stats-records-item [stats]="stats"/>
+  <app-header [player]="player" />
+  <div *ngIf="stats" class="row">
+    <app-stats-records-item [stats]="stats" />
+    <div class="column">
+      <app-war-stats [stats]="wars" />
+      <app-stats-averages-item [stats]="stats" />
     </div>
-    <div class="row">
-
-    <app-stats-opponents-item [stats]="stats"/>
-    <app-stats-maps-item [stats]="stats"/>
-</div>
-
+  </div>
+  <div *ngIf="stats" class="row">
+    <app-stats-opponents-item [stats]="stats" />
+    <app-stats-maps-item [stats]="stats" />
+  </div>
 </div>

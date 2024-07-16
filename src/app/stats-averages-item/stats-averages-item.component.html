@@ -1,7 +1,6 @@
 <div class="main">
     <span class="title">Moyennes</span>
-    <div class="mainStats">
-     
+    <div *ngIf="stats" class="mainStats">
       <div class="vnd">
         <div class="vndView">
           <span>Score moyen</span>
@@ -16,7 +15,5 @@
           <span class="vndValue">{{ stats.shockCount }}</span>
         </div>
       </div>
-    
-     
     </div>
   </div>

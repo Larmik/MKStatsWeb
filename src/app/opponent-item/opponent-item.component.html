@@ -1,0 +1,7 @@
+<div class="teamLogo">
+    <img [src]="logo" />
+    <span class="teamName">{{
+      team?.team_name ?? teamStats?.team?.team_name
+    }}</span>
+    <span class="label">{{ teamStats?.totalPlayed }} wars {{label}}</span>
+  </div>

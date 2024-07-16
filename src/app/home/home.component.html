@@ -5,21 +5,17 @@
     <div class="currentContainer">
        <app-current-war-item *ngFor="let war of currentWars" [war]="war"/>
     </div>
-   
   </div>
   <div class="columns">
-
      <div class="leftColumn">
     <app-last-results [wars]="wars.slice(0, 5)"/>
   </div>
   <div class="middle">
     <app-player-list [rosters]="players"/>
-
   </div>
   <div class="rightColumn">
     <app-war-stats [stats]="wars"/>
     <app-create-war *ngIf="createWarVisible"/>
   </div>
   </div>
- 
 </div>

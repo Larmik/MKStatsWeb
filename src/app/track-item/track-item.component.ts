@@ -1,16 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TrackStats } from '../../models/stats';
+import { NgIf } from '@angular/common';
+import { NumberUtils } from '../../utils/number.utils';
 
 @Component({
   selector: 'app-track-item',
   standalone: true,
-  imports: [MatDialogModule],
+  imports: [MatDialogModule, NgIf],
   templateUrl: './track-item.component.html',
   styleUrl: './track-item.component.scss',
 })
-export class TrackItemComponent {
+export class TrackItemComponent implements OnInit {
   @Input() map!: any;
   @Input() disabled !: Boolean;
+  @Input() trackStats? : TrackStats
+  averagePos?: number
+  
+  ngOnInit(): void {
+    this.averagePos = NumberUtils.pointsToPosition(Math.round(this.trackStats?.playerScore  ?? 0))
+  }
+  
 
   onMouseEnter(hoverName: HTMLElement) {
     if (!this.disabled) {

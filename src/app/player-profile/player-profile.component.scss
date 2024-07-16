@@ -17,17 +17,22 @@ app-header {
     top: 0;
     left: 0;
 }
-app-war-stats   {
-    width: 30%;
-}
- app-stats-records-item , app-stats-opponents-item, app-stats-maps-item{
+
+ app-war-stats, app-stats-averages-item, app-stats-opponents-item, app-stats-maps-item{
     width:100%;
 }
-app-stats-averages-item {
+
+app-stats-records-item {
     width:60%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
 }
 .row {
     display:flex;
-    width: 80%;
+    width: 100%;
 }
 
